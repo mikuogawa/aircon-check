@@ -172,9 +172,13 @@ function render(){
     <button class="btn" onclick="go('oldAge','unknown')">わからない</button>`);
 
   if(step===5) screen("エアコンは何畳用ですか？",`
-    <button class="btn" onclick="go('size','small')">6〜12畳</button>
-    <button class="btn" onclick="go('size','medium')">14〜18畳</button>
-    <button class="btn" onclick="go('size','large')">20畳以上</button>`);
+  <button class="btn" onclick="state.tatami='6畳';go('size','small')">6畳</button>
+<button class="btn" onclick="state.tatami='8畳';go('size','small')">8畳</button>
+<button class="btn" onclick="state.tatami='10畳';go('size','small')">10畳</button>
+<button class="btn" onclick="state.tatami='12畳';go('size','small')">12畳</button>
+<button class="btn" onclick="state.tatami='14畳';go('size','medium')">14畳</button>
+<button class="btn" onclick="state.tatami='18畳';go('size','medium')">18畳</button>
+<button class="btn" onclick="state.tatami='20畳以上';go('size','large')">20畳以上</button>`);
 
   if(step===6) screen("お住まいの種類を選んでください",`
     <div class="grid">
