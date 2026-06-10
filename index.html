@@ -267,9 +267,13 @@ function calc(){
 
 function zeroText(){
   if(state.tokyo!=="yes") return "";
-  if(state.zero==="senior"||state.zero==="disabled"||state.type==="replace"){
-    return "🟢 東京都の補助制度の対象となる可能性があります。";
-  }
+  if(state.zero==="senior" || state.zero==="disabled"){
+  return "🟢 対象機種が一律80,000円引きになる場合があります。詳しくはスタッフまでご相談ください。";
+}
+
+if(state.type==="replace"){
+  return "🟢 東京都の補助制度の対象となる可能性があります。";
+}
   return "⚪ 東京都の補助制度についてはスタッフへご相談ください。";
 }
 
