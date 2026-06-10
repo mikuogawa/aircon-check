@@ -239,16 +239,11 @@ function render(){
     <button class="btn" onclick="go('twoPos','lower')">下段</button>`);
 
   if(step===13) {
-    if(state.type==="replace") screen("現在のエアコンの設置方法を選んでください",`
-      <button class="btn" onclick="go('oldInstall','standard')">標準設置</button>
-      <button class="btn" onclick="go('oldInstall','wall')">壁掛け</button>
-      <button class="btn" onclick="go('oldInstall','koudan')">公団吊り</button>
-      <button class="btn" onclick="go('oldInstall','roof')">屋根置き</button>
-      <button class="btn" onclick="go('oldInstall','two')">二段置き</button>
-      <button class="btn" onclick="go('oldInstall','second')">室内機2階→室外機1階</button>
-      <button class="btn" onclick="go('oldInstall','third')">室内機3階→室外機1階</button>`);
-    else {step=15; render();}
-  }
+    if(step===13){
+  state.oldInstall = state.install;
+  step=15;
+  render();
+}
 
   if(step>=14) result();
 }
