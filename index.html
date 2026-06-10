@@ -200,15 +200,20 @@ function render(){
     <button class="btn" onclick="go('stairs','outdoor')">外階段</button>
     <button class="btn" onclick="go('stairs','unknown')">わからない</button>`);
 
-  if(step===10) screen("設置方法を選んでください",`
-    <img class="image" src="${imgInstall}" onerror="this.style.display='none'">
-    <button class="btn" onclick="go('install','standard')">標準設置</button>
-    <button class="btn" onclick="go('install','wall')">壁掛け</button>
-    <button class="btn" onclick="go('install','koudan')">公団吊り</button>
-    <button class="btn" onclick="go('install','roof')">屋根置き</button>
-    <button class="btn" onclick="go('install','two')">二段置き</button>
-    <button class="btn" onclick="go('install','second')">室内機2階→室外機1階</button>
-    <button class="btn" onclick="go('install','third')">室内機3階→室外機1階</button>`);
+  if(step===10) screen("設置方法を選んでください",
+  `<img class="image" src="${imgInstall}" onerror="this.style.display='none'">
+
+  <div class="grid">
+
+  <button class="btn" onclick="go('install','standard')">標準設置</button>
+  <button class="btn" onclick="go('install','wall')">壁掛け</button>
+  <button class="btn" onclick="go('install','koudan')">公団吊り</button>
+  <button class="btn" onclick="go('install','roof')">屋根置き</button>
+  <button class="btn" onclick="go('install','two')">二段置き</button>
+  <button class="btn" onclick="go('install','second')">室内機2階→室外機1階</button>
+  <button class="btn" onclick="go('install','third')">室内機3階→室外機1階</button>
+
+  </div>`);
 
   if(step===11) screen("配管の種類を選んでください",`
     <img class="image" src="${imgPiping}" onerror="this.style.display='none'">
