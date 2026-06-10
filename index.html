@@ -238,8 +238,7 @@ function render(){
     <button class="btn" onclick="go('twoPos','upper')">上段</button>
     <button class="btn" onclick="go('twoPos','lower')">下段</button>`);
 
-  if(step===13) {
-    if(step===13){
+  if(step===13){
   state.oldInstall = state.install;
   step=15;
   render();
@@ -259,7 +258,6 @@ function calc(){
     }else{
       total+=installReplace[state.install]?.[s]||0;
     }
-    total+=removal[state.oldInstall]||0;
   }
   if(state.piping==="hidden") total+=8800;
   if(state.stairs==="indoor") total+=(s==="small"?2200:3300);
@@ -307,6 +305,7 @@ function result(){
     <div class="notice">
       ⚠️ 表示金額は概算工事費です。<br>
       ⚠️ 設置状況により追加工事費が発生する場合があります。<br>
+      ${state.type==="replace" ? "⚠️ 買い替えの場合、別途リサイクル料金4,070円が必要です。<br>" : ""}
       ${state.piping==="unknown"?"⚠️ 配管種類が不明のため、追加料金が発生する場合があります。<br>":""}
       ${state.stairs==="unknown"?"⚠️ 室外機の搬入経路によって追加料金が発生する場合があります。<br>":""}
       👨‍🔧 詳しくは店舗スタッフまでお気軽にご相談ください。
