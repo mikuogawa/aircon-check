@@ -288,10 +288,12 @@ function zeroText(){
 
 function result(){
   const total=calc();
-  const details=[
-    label(state.type),
-    label(state.size),
+const details=[
+　　 label(state.zero),
+　　 label(state.type),
+　　　label(state.size),
     label(state.building),
+  
     state.building==="apartment" ? "階数："+(state.floor==="first"?"1階":"2階以上") : "",
     state.elevator ? "エレベーター："+label(state.elevator) : "",
     state.stairs ? "階段搬入："+label(state.stairs) : "",
