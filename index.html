@@ -138,7 +138,7 @@ function back(){
 
 function shouldSkip(){
   if(step===3 && state.tokyo!=="yes") return true;
-  if(step===4 && state.type!=="replace") return true;
+  if(step===4 && (state.type==="new" || state.zero==="senior" || state.zero==="disabled")) return true;
   if(step===7 && state.building!=="apartment") return true;
   if(step===8 && !(state.building==="apartment" && state.floor==="upper")) return true;
   if(step===9 && !(state.building==="house" || (state.building==="apartment" && state.floor==="upper" && state.elevator==="no"))) return true;
