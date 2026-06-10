@@ -138,9 +138,10 @@ function back(){
 
 function shouldSkip(){
   if(step===3 && state.tokyo!=="yes") return true;
-  if(step===4 && (state.type==="new" || state.zero==="senior" || state.zero==="disabled")) return true;
+  if(step===4 && state.type!=="replace") return true;
   if(step===7 && state.building!=="apartment") return true;
   if(step===8 && !(state.building==="apartment" && state.floor==="upper")) return true;
+  if(step===9 && !(state.building==="house" || (state.building==="apartment" && state.floor==="upper" && state.elevator==="no"))) return true;
   if(step===12 && !(state.install==="two" && state.type==="replace")) return true;
   if(step===14 && state.type!=="replace") return true;
   return false;
@@ -195,6 +196,7 @@ function render(){
 }
 
 if(step===4) screen("現在お使いのエアコンは？",
+  if(step===4) screen("現在お使いのエアコンは？",`
     <button class="btn" onclick="go('oldAge','15over')">15年以上使用している</button>
     <button class="btn" onclick="go('oldAge','under15')">15年未満</button>
     <button class="btn" onclick="go('oldAge','unknown')">わからない</button>`);
@@ -296,18 +298,19 @@ function zeroText(){
 function result(){
   const total=calc();
 const details=[
+  state.zero==="senior" ? "65歳以上" : state.zero==="disabled" ? "障害者手帳あり" : "",
   label(state.type),
   label(state.size),
-  label(state.building),
-  state.building==="apartment" ? "階数："+(state.floor==="first"?"1階":"2階以上") : "",
-  state.elevator ? "エレベーター："+label(state.elevator) : "",
-  state.stairs ? "階段搬入："+label(state.stairs) : "",
-  "設置方法："+label(state.install),
-  state.install==="two"&&state.twoPos ? "二段置き："+label(state.twoPos) : "",
-  "配管："+label(state.piping),
-  state.type==="replace" ? "既存設置："+label(state.oldInstall) : "",
-  state.oldAge ? "使用年数："+(state.oldAge==="15over"?"15年以上":state.oldAge==="under15"?"15年未満":"わからない") : "",
-].filter(Boolean);
+  
+    state.building==="apartment" ? "階数："+(state.floor==="first"?"1階":"2階以上") : "",
+    state.elevator ? "エレベーター："+label(state.elevator) : "",
+    state.stairs ? "階段搬入："+label(state.stairs) : "",
+    "設置方法："+label(state.install),
+    state.install==="two"&&state.twoPos ? "二段置き："+label(state.twoPos) : "",
+    "配管："+label(state.piping),
+    state.type==="replace" ? "既存設置："+label(state.oldInstall) : "",
+    state.oldAge ? "使用年数："+(state.oldAge==="15over"?"15年以上":state.oldAge==="under15"?"15年未満":"わからない") : ""
+  ].filter(Boolean);
 
   document.getElementById("screen").innerHTML=`
   <div class="card">
