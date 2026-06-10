@@ -141,7 +141,6 @@ function shouldSkip(){
   if(step===4 && (state.type==="new" || state.zero==="senior" || state.zero==="disabled")) return true;
   if(step===7 && state.building!=="apartment") return true;
   if(step===8 && !(state.building==="apartment" && state.floor==="upper")) return true;
-  if(step===9 && !(state.building==="house" || (state.building==="apartment" && state.floor==="upper" && state.elevator==="no"))) return true;
   if(step===12 && !(state.install==="two" && state.type==="replace")) return true;
   if(step===14 && state.type!=="replace") return true;
   return false;
