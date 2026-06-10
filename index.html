@@ -34,6 +34,10 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu G
 .h5{left:2%;top:50%;width:31%;height:38%}
 .h6{left:35%;top:50%;width:31%;height:38%}
 .h7{left:68%;top:50%;width:30%;height:38%}
+
+ .p1{left:2%;top:15%;width:31%;height:70%}
+.p2{left:34%;top:15%;width:31%;height:70%}
+.p3{left:67%;top:15%;width:31%;height:70%} 
 </style>
 </head>
 <body>
@@ -222,11 +226,13 @@ function render(){
   <button class="hot h7" onclick="go('install','third')"></button>
 </div>`);
   
-  if(step===11) screen("配管の種類を選んでください",`
-    <img class="image" src="${imgPiping}" onerror="this.style.display='none'">
-    <button class="btn" onclick="go('piping','normal')">標準配管</button>
-    <button class="btn" onclick="go('piping','hidden')">隠蔽配管</button>
-    <button class="btn" onclick="go('piping','unknown')">わからない</button>`);
+  if(step===11) screen("配管の種類を選んでください",
+`<div class="tapImage">
+<img src="${imgPiping}" onerror="this.style.display='none'">
+<button class="hot p1" onclick="go('piping','normal')"></button>
+<button class="hot p2" onclick="go('piping','hidden')"></button>
+<button class="hot p3" onclick="go('piping','unknown')"></button>
+</div>`);
 
   if(step===12) screen("二段置きのどちらですか？",`
     <button class="btn" onclick="go('twoPos','upper')">上段</button>
