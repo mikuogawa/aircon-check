@@ -180,6 +180,13 @@ function render(){
     <button class="btn" onclick="go('zero','none')">該当しない</button>
     <button class="btn" onclick="go('zero','unknown')">わからない</button>`);
 
+  if(step===4 && (state.zero==="senior" || state.zero==="disabled")){
+  step=5;
+  render();
+  return;
+}
+
+if(step===4) screen("現在お使いのエアコンは？",
   if(step===4) screen("現在お使いのエアコンは？",`
     <button class="btn" onclick="go('oldAge','15over')">15年以上使用している</button>
     <button class="btn" onclick="go('oldAge','under15')">15年未満</button>
