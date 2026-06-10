@@ -298,9 +298,9 @@ function zeroText(){
 function result(){
   const total=calc();
 const details=[
-　　 label(state.type),
-　　　label(state.size),
-    label(state.building),
+  state.zero==="senior" ? "65歳以上" : state.zero==="disabled" ? "障害者手帳あり" : "",
+  label(state.type),
+  label(state.size),
   
     state.building==="apartment" ? "階数："+(state.floor==="first"?"1階":"2階以上") : "",
     state.elevator ? "エレベーター："+label(state.elevator) : "",
