@@ -277,9 +277,13 @@ function calc(){
   }
 
   if(state.piping==="hidden") total+=8800;
-  total+=stairsFee();
-  return total;
+total+=stairsFee();
+
+if(state.type==="replace"){
+  total+=4070;
 }
+
+return total;
 
 function zeroText(){
   if(state.tokyo!=="yes") return "";
@@ -326,13 +330,13 @@ function result(){
     </div>
 
     <div class="notice">
-      ⚠️ 表示金額は概算工事費です。<br>
-      ⚠️ 設置状況により追加工事費が発生する場合があります。<br>
-      ${state.type==="replace" ? "⚠️ 家電リサイクル料金4,070円が別途必要です。<br>" : ""}
-      ${state.piping==="unknown" ? "⚠️ 配管種類が不明のため、追加料金が発生する場合があります。<br>" : ""}
-      ${state.stairs==="unknown" ? "⚠️ 室外機の搬入経路によって追加料金が発生する場合があります。<br>" : ""}
-      👷 詳しくは店舗スタッフまでお気軽にご相談ください。
-    </div>
+  ⚠️ 表示金額は概算総額です。<br>
+  ${state.type==="replace" ? `⚠️ 上記金額には、既存エアコン取り外し料金${removeFee.toLocaleString()}円と、家電リサイクル料金4,070円を含みます。<br>` : ""}
+  ⚠️ 設置状況により追加工事費が発生する場合があります。<br>
+  ${state.piping==="unknown" ? "⚠️ 配管種類が不明のため、追加料金が発生する場合があります。<br>" : ""}
+  ${state.stairs==="unknown" ? "⚠️ 室外機の搬入経路によって追加料金が発生する場合があります。<br>" : ""}
+  👷 詳しくは店舗スタッフまでお気軽にご相談ください。
+</div>
 
     <button class="btn primary" onclick="resetAll()">最初から診断する</button>
   </div>`;
