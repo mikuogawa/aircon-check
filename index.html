@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>エアコン工事費かんたん診断</title>
+<title>エアコン診断ツール</title>
 <style>
 body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;background:#f3f6fb;color:#111}
 .app{max-width:1100px;margin:auto;min-height:100vh;padding:18px}
@@ -19,12 +19,10 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu G
 .notice{background:#fff8dc;border-radius:14px;padding:18px;margin-top:20px;text-align:left;font-size:20px;line-height:1.8}
 .progress{height:10px;background:#d8deea;border-radius:10px;margin-top:16px;overflow:hidden}
 .bar{height:100%;background:#0068ff;width:0%}
-.image{width:100%;border-radius:14px;margin:15px 0;border:1px solid #ddd}
 .resultPrice{font-size:72px;font-weight:900;color:#003b8f;margin:15px}
 .detail{font-size:18px;text-align:left;display:inline-block;line-height:1.8}
-.hidden{display:none}
 .tapImage{position:relative;width:100%}
-.tapImage img{width:100%;display:block}
+.tapImage img{width:100%;display:block;border-radius:14px;margin:15px 0;border:1px solid #ddd}
 .hot{position:absolute;background:transparent;border:0}
 .h1{left:2%;top:8%;width:23%;height:40%}
 .h2{left:27%;top:8%;width:23%;height:40%}
@@ -40,7 +38,7 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu G
 </head>
 <body>
 <div class="app">
-  <div class="header">エアコン工事費 かんたん診断</div>
+  <div class="header">エアコン診断ツール</div>
   <div id="screen"></div>
 </div>
 
@@ -53,6 +51,8 @@ let step="start";
 let history=[];
 
 const base={small:20350,medium:24750,large:28050};
+const removalFee=6600;
+const recycleFee=4070;
 
 const installNew={
   standard:{small:0,medium:0,large:0},
@@ -125,11 +125,12 @@ function render(){
   if(step==="start"){
     document.getElementById("screen").innerHTML=`
     <div class="card">
-      <div class="big">エアコン工事費<br>かんたん診断</div>
-      <p class="sub">約1分で概算工事費がわかります</p>
-      <button class="btn primary" onclick="next('type')">診断をはじめる！</button>
+      <div class="big">エアコン診断ツール</div>
+      <p class="sub">やりたい診断を選んでください</p>
+      <button class="btn primary" onclick="next('type')">工事費診断</button>
+      <button class="btn" onclick="next('makerStart')">メーカー別診断</button>
       <div class="notice">
-        ⚠️ 表示金額は概算工事費です。<br>
+        ⚠️ 表示金額は概算です。<br>
         ⚠️ 設置状況により追加工事費が発生する場合があります。<br>
         👷 詳しくは店舗スタッフまでお気軽にご相談ください。
       </div>
@@ -143,15 +144,15 @@ function render(){
   `,8);
 
   if(step==="tokyo") screen("お住まいは東京都ですか？",`
-    <button class="btn" onclick="go('tokyo','yes','zero')">はい</button>
-    <button class="btn" onclick="go('tokyo','no','zero')">いいえ</button>
+    <button class="btn" onclick="goTokyo('yes')">はい</button>
+    <button class="btn" onclick="goTokyo('no')">いいえ</button>
   `,16);
 
   if(step==="zero") screen("あなたは以下のいずれかに該当しますか？",`
-    <button class="btn" onclick="go('zero','senior',nextAfterZero())">65歳以上</button>
-    <button class="btn" onclick="go('zero','disabled',nextAfterZero())">障害者手帳を持っている</button>
-    <button class="btn" onclick="go('zero','none',nextAfterZero())">該当しない</button>
-    <button class="btn" onclick="go('zero','unknown',nextAfterZero())">わからない</button>
+    <button class="btn" onclick="goZero('senior')">65歳以上</button>
+    <button class="btn" onclick="goZero('disabled')">障害者手帳を持っている</button>
+    <button class="btn" onclick="goZero('none')">該当しない</button>
+    <button class="btn" onclick="goZero('unknown')">わからない</button>
   `,24);
 
   if(step==="oldAge") screen("現在お使いのエアコンは？",`
@@ -221,31 +222,49 @@ function render(){
     <button class="btn" onclick="go('stairs','unknown','result')">わからない</button>
   `,96);
 
-if(step==="makerStart") screen("あなたに合うエアコンメーカー診断",`
-  <p class="sub">使い方に合うメーカーをおすすめします</p>
-  <button class="btn primary" onclick="next('makerBudget')">診断をはじめる</button>
-  <button class="btn" onclick="resetAll()">最初から診断する</button>
-`,100);
+  if(step==="result") result();
 
-if(step==="makerBudget") screen("重視したいのはどれですか？",`
-  <button class="btn" onclick="go('makerBudget','price','makerUse')">価格を抑えたい</button>
-  <button class="btn" onclick="go('makerBudget','balance','makerUse')">価格と性能のバランス</button>
-  <button class="btn" onclick="go('makerBudget','high','makerUse')">性能重視</button>
-`,100);
+  if(step==="makerStart") screen("あなたに合うエアコンメーカー診断",`
+    <p class="sub">使い方に合うメーカーをおすすめします</p>
+    <button class="btn primary" onclick="next('makerBudget')">診断をはじめる</button>
+    <button class="btn" onclick="resetAll()">ホームへ戻る</button>
+  `,10);
 
-if(step==="makerUse") screen("よく使う機能は？",`
-  <button class="btn" onclick="pickMakerUse('cool')">冷房メイン</button>
-  <button class="btn" onclick="pickMakerUse('heat')">暖房もよく使う</button>
-  <button class="btn" onclick="pickMakerUse('air')">空気清浄・におい対策</button>
-`,100);
+  if(step==="makerBudget") screen("重視したいのはどれですか？",`
+    <button class="btn" onclick="go('makerBudget','price','makerUse')">価格を抑えたい</button>
+    <button class="btn" onclick="go('makerBudget','balance','makerUse')">価格と性能のバランス</button>
+    <button class="btn" onclick="go('makerBudget','high','makerUse')">性能重視</button>
+  `,40);
+
+  if(step==="makerUse") screen("よく使う機能は？",`
+    <button class="btn" onclick="pickMakerUse('cool')">冷房メイン</button>
+    <button class="btn" onclick="pickMakerUse('heat')">暖房もよく使う</button>
+    <button class="btn" onclick="pickMakerUse('air')">空気清浄・におい対策</button>
+  `,70);
 
   if(step==="makerResult") makerResult();
-  if(step==="result") result();
 }
 
-function nextAfterZero(){
-  if(state.type==="replace" && !(state.zero==="senior" || state.zero==="disabled")) return "oldAge";
-  return "size";
+function goTokyo(v){
+  state.tokyo=v;
+
+  if(v==="no"){
+    next("size");
+    return;
+  }
+
+  next("zero");
+}
+
+function goZero(v){
+  state.zero=v;
+
+  if(state.type==="replace" && !(v==="senior" || v==="disabled")){
+    next("oldAge");
+    return;
+  }
+
+  next("size");
 }
 
 function goInstall(v){
@@ -288,10 +307,14 @@ function calc(){
     }else{
       total+=(installReplace[state.install]?.[s]||0);
     }
+
+    total+=removalFee;
+    total+=recycleFee;
   }
 
   if(state.piping==="hidden") total+=8800;
   total+=stairsFee();
+
   return total;
 }
 
@@ -299,7 +322,7 @@ function zeroText(){
   if(state.tokyo!=="yes") return "";
 
   if(state.zero==="senior" || state.zero==="disabled"){
-    return "🟢 対象機種が一律80000円引きになる場合があります。詳しくはスタッフまでご相談ください。";
+    return "🟢 対象機種が一律80,000円引きになる場合があります。詳しくはスタッフまでご相談ください。";
   }
 
   if(state.type==="replace"){
@@ -314,7 +337,8 @@ function result(){
 
   const details=[
     label(state.type),
-    label(state.zero),
+    state.tokyo ? "東京都："+label(state.tokyo) : "",
+    state.zero ? label(state.zero) : "",
     label(state.size),
     label(state.building),
     state.building==="apartment" ? "階数："+label(state.floor) : "",
@@ -329,39 +353,42 @@ function result(){
   document.getElementById("screen").innerHTML=`
   <div class="card">
     <h1>診断結果</h1>
-    <div class="sub">概算工事費</div>
+    <div class="sub">概算工事費総額</div>
     <div class="resultPrice">${yen(total)}</div>
+    ${state.type==="replace" ? `<p class="sub">取り外し料・家電リサイクル料を含みます</p>` : ""}
     <p class="sub">この画面をスタッフへお見せください</p>
 
     <div class="detail">
       <strong>診断内容</strong><br>
       ${details.map(x=>"・"+x).join("<br>")}
+      ${state.type==="replace" ? `<br>・取り外し料：${yen(removalFee)}<br>・家電リサイクル料：${yen(recycleFee)}` : ""}
       <br><br>${zeroText()}
     </div>
 
     <div class="notice">
       ⚠️ 表示金額は概算工事費です。<br>
+      ${state.type==="replace" ? "⚠️ 表示金額には取り外し料・家電リサイクル料を含みます。<br>" : ""}
       ⚠️ 設置状況により追加工事費が発生する場合があります。<br>
-      ${state.type==="replace" ? "⚠️ 家電リサイクル料金4,070円が別途必要です。<br>" : ""}
       ${state.piping==="unknown" ? "⚠️ 配管種類が不明のため、追加料金が発生する場合があります。<br>" : ""}
       ${state.stairs==="unknown" ? "⚠️ 室外機の搬入経路によって追加料金が発生する場合があります。<br>" : ""}
       👷 詳しくは店舗スタッフまでお気軽にご相談ください。
     </div>
 
     <button class="btn primary" onclick="next('makerStart')">メーカー診断ツールへ進む</button>
-<button class="btn" onclick="resetAll()">最初から診断する</button>
+    <button class="btn" onclick="resetAll()">ホームへ戻る</button>
   </div>`;
 }
 
 function pickMakerUse(v){
   state.makerUse=v;
-  makerResult();
+  history.push(step);
+  step="makerResult";
+  render();
 }
   
 function makerResult(){
-
   let maker="ダイキン";
-  let reason="冷暖房性能のバランスに優れています。";
+  let reason="設定温度になったあとも弱く運転しながら温度を保ちやすく、快適性を重視する方におすすめです。空調メーカーなので夏場の修理対応面でも安心感があります。";
 
   if(state.makerBudget==="price"){
     maker="アイリスオーヤマ";
@@ -370,39 +397,32 @@ function makerResult(){
 
   if(state.makerBudget==="balance"){
     maker="三菱電機";
-    reason="価格と性能のバランスが良いメーカーです。";
+    reason="価格と性能のバランスが良く、使いやすさを重視する方におすすめです。";
   }
 
   if(state.makerBudget==="high"){
     maker="ダイキン";
-    reason="性能重視の方におすすめです。";
+    reason="冷暖房性能と快適性を重視する方におすすめです。";
   }
 
   if(state.makerUse==="heat"){
     maker="ダイキン";
-    reason="暖房性能に定評があります。";
+    reason="冷房だけでなく暖房もよく使う方におすすめです。温度を保つ運転が得意で、不快に感じづらいのが強みです。";
   }
 
   if(state.makerUse==="air"){
-    maker="シャープ";
-    reason="空気清浄やにおい対策を重視する方におすすめです。";
+    maker="日立";
+    reason="清潔性を重視する方におすすめです。凍結洗浄など、お手入れ面を重視したい方に向いています。";
   }
 
   document.getElementById("screen").innerHTML=`
   <div class="card">
     <h1>メーカー診断結果</h1>
-
     <div class="sub">あなたへのおすすめ</div>
-
     <div class="resultPrice">${maker}</div>
-
-    <div class="notice">
-      ${reason}
-    </div>
-
+    <div class="notice">${reason}</div>
     <button class="btn" onclick="back()">← 戻る</button>
-    <button class="btn primary" onclick="resetAll()">最初から診断する</button>
-
+    <button class="btn primary" onclick="resetAll()">ホームへ戻る</button>
   </div>`;
 }
   
