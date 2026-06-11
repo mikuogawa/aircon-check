@@ -234,9 +234,9 @@ if(step==="makerBudget") screen("重視したいのはどれですか？",`
 `,100);
 
 if(step==="makerUse") screen("よく使う機能は？",`
-  <button class="btn" onclick="go('makerUse','cool','makerResult')">冷房メイン</button>
-  <button class="btn" onclick="go('makerUse','heat','makerResult')">暖房もよく使う</button>
-  <button class="btn" onclick="go('makerUse','air','makerResult')">空気清浄・におい対策</button>
+  <button class="btn" onclick="pickMakerUse('cool')">冷房メイン</button>
+  <button class="btn" onclick="pickMakerUse('heat')">暖房もよく使う</button>
+  <button class="btn" onclick="pickMakerUse('air')">空気清浄・におい対策</button>
 `,100);
 
   if(step==="makerResult") makerResult();
@@ -353,6 +353,11 @@ function result(){
   </div>`;
 }
 
+function pickMakerUse(v){
+  state.makerUse=v;
+  makerResult();
+}
+  
 function makerResult(){
 
   let maker="ダイキン";
