@@ -221,6 +221,24 @@ function render(){
     <button class="btn" onclick="go('stairs','unknown','result')">わからない</button>
   `,96);
 
+if(step==="makerStart") screen("あなたに合うエアコンメーカー診断",`
+  <p class="sub">使い方に合うメーカーをおすすめします</p>
+  <button class="btn primary" onclick="next('makerBudget')">診断をはじめる</button>
+  <button class="btn" onclick="resetAll()">最初から診断する</button>
+`,100);
+
+if(step==="makerBudget") screen("重視したいのはどれですか？",`
+  <button class="btn" onclick="go('makerBudget','price','makerUse')">価格を抑えたい</button>
+  <button class="btn" onclick="go('makerBudget','balance','makerUse')">価格と性能のバランス</button>
+  <button class="btn" onclick="go('makerBudget','high','makerUse')">性能重視</button>
+`,100);
+
+if(step==="makerUse") screen("よく使う機能は？",`
+  <button class="btn" onclick="go('makerUse','cool','makerResult')">冷房メイン</button>
+  <button class="btn" onclick="go('makerUse','heat','makerResult')">暖房もよく使う</button>
+  <button class="btn" onclick="go('makerUse','air','makerResult')">空気清浄・におい対策</button>
+`,100);
+  
   if(step==="result") result();
 }
 
@@ -329,10 +347,59 @@ function result(){
       👷 詳しくは店舗スタッフまでお気軽にご相談ください。
     </div>
 
-    <button class="btn primary" onclick="resetAll()">最初から診断する</button>
+    <button class="btn primary" onclick="next('makerStart')">メーカー診断ツールへ進む</button>
+<button class="btn" onclick="resetAll()">最初から診断する</button>
   </div>`;
 }
 
+function makerResult(){
+
+  let maker="ダイキン";
+  let reason="冷暖房性能のバランスに優れています。";
+
+  if(state.makerBudget==="price"){
+    maker="アイリスオーヤマ";
+    reason="価格を重視する方におすすめです。";
+  }
+
+  if(state.makerBudget==="balance"){
+    maker="三菱電機";
+    reason="価格と性能のバランスが良いメーカーです。";
+  }
+
+  if(state.makerBudget==="high"){
+    maker="ダイキン";
+    reason="性能重視の方におすすめです。";
+  }
+
+  if(state.makerUse==="heat"){
+    maker="ダイキン";
+    reason="暖房性能に定評があります。";
+  }
+
+  if(state.makerUse==="air"){
+    maker="シャープ";
+    reason="空気清浄やにおい対策を重視する方におすすめです。";
+  }
+
+  document.getElementById("screen").innerHTML=`
+  <div class="card">
+    <h1>メーカー診断結果</h1>
+
+    <div class="sub">あなたへのおすすめ</div>
+
+    <div class="resultPrice">${maker}</div>
+
+    <div class="notice">
+      ${reason}
+    </div>
+
+    <button class="btn" onclick="back()">← 戻る</button>
+    <button class="btn primary" onclick="resetAll()">最初から診断する</button>
+
+  </div>`;
+}
+  
 function resetAll(){
   for(const k in state) delete state[k];
   history=[];
