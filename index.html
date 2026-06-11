@@ -330,7 +330,7 @@ function result(){
 
     <div class="notice">
   ⚠️ 表示金額は概算総額です。<br>
-  ${state.type==="replace" ? `⚠️ 上記金額には、既存エアコン取り外し料金${removeFee.toLocaleString()}円と、家電リサイクル料金4,070円を含みます。<br>` : ""}
+  ${state.type==="replace" ? "⚠️ 上記金額には、家電リサイクル料金4,070円を含みます。<br>" : ""}
   ⚠️ 設置状況により追加工事費が発生する場合があります。<br>
   ${state.piping==="unknown" ? "⚠️ 配管種類が不明のため、追加料金が発生する場合があります。<br>" : ""}
   ${state.stairs==="unknown" ? "⚠️ 室外機の搬入経路によって追加料金が発生する場合があります。<br>" : ""}
