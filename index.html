@@ -144,15 +144,15 @@ function render(){
 
   if(step==="tokyo") screen("お住まいは東京都ですか？",`
     <button class="btn" onclick="go('tokyo','yes','zero')">はい</button>
-    <button class="btn" onclick="go('tokyo','no','zero')">いいえ</button>
+    <button class="btn" onclick="go('tokyo','no','size')">いいえ</button>
   `,16);
 
   if(step==="zero") screen("あなたは以下のいずれかに該当しますか？",`
-    <button class="btn" onclick="go('zero','senior',nextAfterZero())">65歳以上</button>
-    <button class="btn" onclick="go('zero','disabled',nextAfterZero())">障害者手帳を持っている</button>
-    <button class="btn" onclick="go('zero','none',nextAfterZero())">該当しない</button>
-    <button class="btn" onclick="go('zero','unknown',nextAfterZero())">わからない</button>
-  `,24);
+  <button class="btn" onclick="go('zero','senior','size')">65歳以上</button>
+  <button class="btn" onclick="go('zero','disabled','size')">障害者手帳を持っている</button>
+  <button class="btn" onclick="go('zero','none',nextAfterZero())">該当しない</button>
+  <button class="btn" onclick="go('zero','unknown','size')">わからない</button>
+`,24);
 
   if(step==="oldAge") screen("現在お使いのエアコンは？",`
     <button class="btn" onclick="go('oldAge','15over','size')">15年以上使用している</button>
