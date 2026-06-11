@@ -41,12 +41,51 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu G
 .p1{left:2%;top:15%;width:31%;height:70%}
 .p2{left:34%;top:15%;width:31%;height:70%}
 .p3{left:67%;top:15%;width:31%;height:70%}
-.rankBox{border:3px solid #d8e3f7;border-radius:20px;padding:24px;margin:18px 0;text-align:left}
-.rankTitle{font-size:34px;font-weight:900;color:#003b8f}
-.rankSub{font-size:22px;font-weight:900;margin:10px 0}
-.rankPoint{font-size:20px;line-height:1.8}
+
+.resultHero{
+  background:linear-gradient(135deg,#003b8f,#0068ff);
+  color:white;
+  border-radius:24px;
+  padding:28px;
+  margin:18px 0 26px;
+  box-shadow:0 10px 24px #003b8f33;
+}
+.resultHeroTitle{font-size:24px;font-weight:900;opacity:.95}
+.resultHeroMain{font-size:44px;font-weight:900;margin-top:8px}
+.rankWrap{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px}
+.rankBox{
+  border-radius:24px;
+  padding:26px;
+  text-align:left;
+  box-shadow:0 8px 22px #00000012;
+  position:relative;
+  overflow:hidden;
+}
+.rankBox.first{
+  background:linear-gradient(135deg,#ffffff,#eef5ff);
+  border:4px solid #0068ff;
+}
+.rankBox.second{
+  background:#ffffff;
+  border:3px solid #d8e3f7;
+}
+.rankLabel{
+  display:inline-block;
+  background:#003b8f;
+  color:white;
+  border-radius:999px;
+  padding:8px 18px;
+  font-size:18px;
+  font-weight:900;
+  margin-bottom:12px;
+}
+.rankBox.second .rankLabel{background:#6d7f9d}
+.rankTitle{font-size:44px;font-weight:900;color:#003b8f;line-height:1.1}
+.rankSub{font-size:22px;font-weight:900;margin:14px 0;color:#222;line-height:1.4}
+.rankPoint{font-size:20px;line-height:1.8;margin-top:14px}
 .badge{display:inline-block;background:#eaf2ff;color:#003b8f;border-radius:999px;padding:8px 16px;font-size:18px;font-weight:900;margin:5px}
-@media(max-width:700px){.homeGrid,.choiceGrid,.grid{grid-template-columns:1fr}.big{font-size:42px}}
+.first .badge{background:#dcecff}
+@media(max-width:700px){.homeGrid,.choiceGrid,.grid,.rankWrap{grid-template-columns:1fr}.big{font-size:42px}}
 </style>
 </head>
 <body>
@@ -303,19 +342,24 @@ function makerResult(){
 const [first,second]=recommend();
 document.getElementById("screen").innerHTML=`
 <div class="card">
-<h1>メーカー診断結果</h1>
-<p class="sub">あなたにおすすめの上位2メーカー</p>
-${makerBox("第1候補",makers[first])}
-${makerBox("第2候補",makers[second])}
+<div class="resultHero">
+  <div class="resultHeroTitle">メーカー診断結果</div>
+  <div class="resultHeroMain">あなたにおすすめの上位2メーカー</div>
+</div>
+<div class="rankWrap">
+${makerBox("第1候補",makers[first],"first")}
+${makerBox("第2候補",makers[second],"second")}
+</div>
 <div class="notice">👷 最終的にはお部屋の広さ・設置場所・在庫機種に合わせてスタッフがご案内します。</div>
 <button class="btn" onclick="back()">← 戻る</button>
 <button class="btn primary" onclick="resetAll()">ホームへ戻る</button>
 </div>`;
 }
 
-function makerBox(rank,m){
-return `<div class="rankBox">
-<div class="rankTitle">${rank}　${m.name}</div>
+function makerBox(rank,m,type){
+return `<div class="rankBox ${type}">
+<div class="rankLabel">${rank}</div>
+<div class="rankTitle">${m.name}</div>
 <div class="rankSub">${m.title}</div>
 <div>${m.tags.map(t=>`<span class="badge">${t}</span>`).join("")}</div>
 <div class="rankPoint">${m.points.map(p=>"✅ "+p).join("<br>")}</div>
