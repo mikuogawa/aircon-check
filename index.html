@@ -225,7 +225,12 @@ function render(){
 }
 
 function nextAfterZero(){
-  if(state.type==="replace" && !(state.zero==="senior" || state.zero==="disabled")) return "oldAge";
+  if(
+    state.type==="replace" &&
+    state.tokyo==="yes" &&
+    state.zero==="none"
+  ) return "oldAge";
+
   return "size";
 }
 
