@@ -6,24 +6,24 @@
 <title>エアコン診断ツール</title>
 <style>
 body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;background:#f3f6fb;color:#111}
-.app{max-width:1100px;margin:auto;min-height:100vh;padding:40px 18px}
-.card{background:white;border-radius:22px;padding:36px;margin-top:22px;box-shadow:0 6px 22px #00000012;text-align:center}
-.big{font-size:56px;font-weight:900;color:#003b8f;line-height:1.25}
+.app{max-width:1180px;margin:auto;min-height:100vh;padding:26px 22px}
+.card{background:white;border-radius:24px;padding:34px;box-shadow:0 8px 26px #00000014;text-align:center}
+.big{font-size:58px;font-weight:900;color:#003b8f;line-height:1.2}
 .sub{font-size:24px;font-weight:800;line-height:1.6}
-.btn{display:block;width:100%;max-width:620px;margin:18px auto;padding:22px;border:3px solid #0046ad;background:white;color:#003b8f;border-radius:16px;font-size:28px;font-weight:900}
+.btn{display:block;width:100%;max-width:620px;margin:16px auto;padding:22px;border:3px solid #0046ad;background:white;color:#003b8f;border-radius:18px;font-size:28px;font-weight:900}
 .btn.primary{background:#0046ad;color:white}
-.btn.small{font-size:20px;padding:14px;max-width:280px}
-.menuBtn{text-align:left;display:flex;align-items:center;gap:24px;padding:26px 34px}
-.menuIcon{width:74px;height:74px;border-radius:50%;background:#0046ad;color:white;display:flex;align-items:center;justify-content:center;font-size:36px;flex-shrink:0}
-.menuText{flex:1}
-.menuTitle{font-size:34px;font-weight:900}
-.menuDesc{font-size:19px;margin-top:6px}
-.arrow{font-size:42px}
-.notice{background:#fff8dc;border-radius:16px;padding:22px;margin-top:26px;text-align:left;font-size:21px;line-height:1.9}
+.btn.small{font-size:20px;padding:12px;max-width:260px}
+.homeGrid,.choiceGrid,.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.homeGrid{gap:24px;margin-top:32px}
+.homeCard{border:3px solid #0046ad;border-radius:24px;background:white;padding:34px 24px;color:#003b8f;font-weight:900;font-size:34px}
+.homeCard.primary{background:#0046ad;color:white}
+.homeIcon{font-size:54px;display:block;margin-bottom:14px}
+.homeTime{font-size:22px;margin-top:10px;opacity:.9}
+.choice,.option{border:3px solid #cfd8e8;border-radius:20px;background:white;padding:24px 16px;font-size:28px;font-weight:900;color:#003b8f}
+.choice .emoji{display:block;font-size:42px;margin-bottom:8px}
+.notice{background:#fff8dc;border-radius:16px;padding:20px;margin-top:24px;text-align:left;font-size:20px;line-height:1.8}
 .progress{height:10px;background:#d8deea;border-radius:10px;margin-top:16px;overflow:hidden}
-.bar{height:100%;background:#0068ff;width:0%}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
-.option{border:3px solid #cfd8e8;border-radius:16px;padding:22px;font-size:26px;font-weight:900;background:white}
+.bar{height:100%;background:#0068ff}
 .resultPrice{font-size:68px;font-weight:900;color:#003b8f;margin:16px}
 .detail{font-size:19px;text-align:left;display:inline-block;line-height:1.9}
 .tapImage{position:relative;width:100%}
@@ -39,13 +39,16 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu G
 .p1{left:2%;top:15%;width:31%;height:70%}
 .p2{left:34%;top:15%;width:31%;height:70%}
 .p3{left:67%;top:15%;width:31%;height:70%}
-.badge{display:inline-block;background:#eaf2ff;color:#003b8f;border-radius:999px;padding:8px 18px;font-size:20px;font-weight:900;margin:6px}
+.rankBox{border:3px solid #d8e3f7;border-radius:20px;padding:24px;margin:18px 0;text-align:left}
+.rankTitle{font-size:34px;font-weight:900;color:#003b8f}
+.rankSub{font-size:22px;font-weight:900;margin:10px 0}
+.rankPoint{font-size:20px;line-height:1.8}
+.badge{display:inline-block;background:#eaf2ff;color:#003b8f;border-radius:999px;padding:8px 16px;font-size:18px;font-weight:900;margin:5px}
+@media(max-width:700px){.homeGrid,.choiceGrid,.grid{grid-template-columns:1fr}.big{font-size:42px}}
 </style>
 </head>
 <body>
-<div class="app">
-  <div id="screen"></div>
-</div>
+<div class="app"><div id="screen"></div></div>
 
 <script>
 const imgInstall="images/0AB48FD8-F66B-4575-B338-9394A00EAE6C.png";
@@ -118,25 +121,10 @@ function render(){
     <div class="card">
       <div class="big">エアコン診断ツール</div>
       <p class="sub">やりたい診断を選んでください</p>
-
-      <button class="btn primary menuBtn" onclick="next('type')">
-        <span class="menuIcon">🔧</span>
-        <span class="menuText">
-          <span class="menuTitle">工事費診断</span>
-          <span class="menuDesc">設置条件から工事費の概算がわかります</span>
-        </span>
-        <span class="arrow">›</span>
-      </button>
-
-      <button class="btn menuBtn" onclick="next('makerConcern')">
-        <span class="menuIcon">🏆</span>
-        <span class="menuText">
-          <span class="menuTitle">後悔しないメーカー診断</span>
-          <span class="menuDesc">あなたに合うエアコンメーカーをおすすめします</span>
-        </span>
-        <span class="arrow">›</span>
-      </button>
-
+      <div class="homeGrid">
+        <button class="homeCard primary" onclick="next('type')"><span class="homeIcon">🔧</span>工事費診断<div class="homeTime">約1分</div></button>
+        <button class="homeCard" onclick="next('makerConcern')"><span class="homeIcon">🏆</span>メーカー診断<div class="homeTime">約30秒</div></button>
+      </div>
       <div class="notice">
         ⚠️ 表示金額は概算です。<br>
         ⚠️ 設置状況により追加工事費が発生する場合があります。<br>
@@ -232,34 +220,27 @@ function render(){
 
   if(step==="result") result();
 
-  if(step==="makerConcern") screen("エアコン選びで一番後悔したくないことは？",`
-    <button class="btn" onclick="go('concern','electric','makerRoom')">💰 電気代</button>
-    <button class="btn" onclick="go('concern','clean','makerCleaning')">🧹 掃除・清潔性</button>
-    <button class="btn" onclick="go('concern','smell','makerRoom')">🤧 花粉・ニオイ</button>
-    <button class="btn" onclick="go('concern','wind','makerRoom')">🥶 風あたり</button>
-    <button class="btn" onclick="go('concern','power','makerRoom')">🔥 パワー不足</button>
-    <button class="btn" onclick="go('concern','support','makerRoom')">☎️ 修理・サポート</button>
-    <button class="btn" onclick="go('concern','kidsPets','makerRoom')">👶 子供・ペットの快適性</button>
-    <button class="btn" onclick="go('concern','kitchen','makerRoom')">🍳 キッチン近くの汚れ</button>
-    <button class="btn" onclick="go('concern','outdoor','makerRoom')">🏠 室外機の置き場所</button>
-  `,25);
-
-  if(step==="makerCleaning") screen("お掃除はどちらが近いですか？",`
-    <button class="btn" onclick="go('cleaning','auto','makerRoom')">自分ではあまり掃除したくない</button>
-    <button class="btn" onclick="go('cleaning','self','makerRoom')">自分でしっかり掃除したい</button>
-    <button class="btn" onclick="go('cleaning','smell','makerRoom')">ニオイ・空気もきれいにしたい</button>
+  if(step==="makerConcern") screen("一番重視したいことは？",`
+    <div class="choiceGrid">
+      <button class="choice" onclick="go('concern','bodyPrice','makerResult')"><span class="emoji">💸</span>本体代</button>
+      <button class="choice" onclick="go('concern','electric','makerResult')"><span class="emoji">💰</span>電気代</button>
+      <button class="choice" onclick="go('concern','clean','makerCleaning')"><span class="emoji">🧹</span>掃除・清潔性</button>
+      <button class="choice" onclick="go('concern','smell','makerResult')"><span class="emoji">🤧</span>花粉・ニオイ</button>
+      <button class="choice" onclick="go('concern','wind','makerResult')"><span class="emoji">🥶</span>風あたり</button>
+      <button class="choice" onclick="go('concern','power','makerResult')"><span class="emoji">🔥</span>パワー</button>
+      <button class="choice" onclick="go('concern','support','makerResult')"><span class="emoji">☎️</span>修理・サポート</button>
+      <button class="choice" onclick="go('concern','kidsPets','makerResult')"><span class="emoji">👶</span>子供・ペット</button>
+    </div>
   `,50);
 
-  if(step==="makerRoom") screen("使うお部屋はどんな場所ですか？",`
-    <button class="btn" onclick="go('room','ldk','makerResult')">広いリビング・LDK</button>
-    <button class="btn" onclick="go('room','kitchen','makerResult')">キッチンが近い部屋</button>
-    <button class="btn" onclick="go('room','bedroom','makerResult')">寝室・子供部屋</button>
-    <button class="btn" onclick="go('room','pets','makerResult')">ペットや小さい子供がいる部屋</button>
-    <button class="btn" onclick="go('room','senior','makerResult')">高齢の方が使う部屋</button>
-    <button class="btn" onclick="go('room','smallOutdoor','makerResult')">室外機の置き場所が狭い</button>
+  if(step==="makerCleaning") screen("お掃除はどちらが近いですか？",`
+    <div class="choiceGrid">
+      <button class="choice" onclick="go('cleaning','auto','makerResult')"><span class="emoji">🤖</span>できるだけ任せたい</button>
+      <button class="choice" onclick="go('cleaning','self','makerResult')"><span class="emoji">🧼</span>自分で掃除したい</button>
+      <button class="choice" onclick="go('cleaning','sterilize','makerResult')"><span class="emoji">✨</span>除菌も重視したい</button>
+      <button class="choice" onclick="go('cleaning','smell','makerResult')"><span class="emoji">🌿</span>ニオイも気になる</button>
+    </div>
   `,75);
-
-  if(step==="makerResult") makerResult();
 }
 
 function goTokyo(v){
@@ -356,14 +337,12 @@ function result(){
     <div class="resultPrice">${yen(total)}</div>
     ${state.type==="replace" ? `<p class="sub">取り外し料・家電リサイクル料を含みます</p>` : ""}
     <p class="sub">この画面をスタッフへお見せください</p>
-
     <div class="detail">
       <strong>診断内容</strong><br>
       ${details.map(x=>"・"+x).join("<br>")}
       ${state.type==="replace" ? `<br>・取り外し料：${yen(removalFee)}<br>・家電リサイクル料：${yen(recycleFee)}` : ""}
       <br><br>${zeroText()}
     </div>
-
     <div class="notice">
       ⚠️ 表示金額は概算工事費です。<br>
       ${state.type==="replace" ? "⚠️ 表示金額には取り外し料・家電リサイクル料を含みます。<br>" : ""}
@@ -372,111 +351,122 @@ function result(){
       ${state.stairs==="unknown" ? "⚠️ 室外機の搬入経路によって追加料金が発生する場合があります。<br>" : ""}
       👷 詳しくは店舗スタッフまでお気軽にご相談ください。
     </div>
-
     <button class="btn primary" onclick="next('makerConcern')">メーカー診断へ進む</button>
     <button class="btn" onclick="resetAll()">ホームへ戻る</button>
   </div>`;
 }
 
-function makerData(){
-  let maker="ダイキン";
-  let icon="🌬️";
-  let title="広いお部屋やパワー重視ならこれ";
-  let badges=["快適性","パワー","修理安心"];
-  let points=[
-    "設定温度になったあとも弱火のように運転して温度を保ちやすい",
-    "冷えすぎ・暑くなりすぎを防ぎ、不快に感じづらい",
-    "ストリーマで菌やニオイ対策にも強い",
-    "空調専門メーカーで365日メーカー窓口があり安心"
-  ];
-
-  if(state.concern==="kitchen" || state.room==="kitchen" || state.cleaning==="auto"){
-    maker="日立";
-    icon="🧊";
-    title="キッチン近くのお部屋・清潔性重視ならこれ";
-    badges=["清潔性","凍結洗浄","掃除ラク"];
-    points=[
+const makers={
+  daikin:{
+    name:"ダイキン",
+    title:"電気代・パワー・サポート重視におすすめ",
+    tags:["省エネ","パワー","サポート"],
+    points:[
+      "設定温度になったあとも弱運転で温度を保ちやすい",
+      "冷えすぎ・暑くなりすぎを防ぎ、不快に感じづらい",
+      "ストリーマで菌やニオイ対策にも強い",
+      "空調専門メーカーなので修理やサポートも安心"
+    ]
+  },
+  hitachi:{
+    name:"日立",
+    title:"掃除を任せたい・清潔性重視におすすめ",
+    tags:["清潔性","凍結洗浄","掃除ラク"],
+    points:[
       "凍結洗浄で熱交換器や奥の汚れを洗い流しやすい",
-      "清潔性が高く、キッチン近くの油汚れが気になるお部屋におすすめ",
+      "清潔性が高く、キッチン近くのお部屋にもおすすめ",
       "自分であまり掃除したくない方に向いている",
-      "WNシリーズはより静かさも重視しやすい"
-    ];
-  }
-
-  if(state.cleaning==="self" || state.concern==="outdoor" || state.room==="smallOutdoor" || state.concern==="electric"){
-    maker="三菱電機";
-    icon="👁️";
-    title="センサー・自分でお手入れ・置き場所重視ならこれ";
-    badges=["センサー","節電","室外機小さめ"];
-    points=[
-      "センサーが優秀で、暑がっている人・寒がっている人を見分けやすい",
+      "清潔性重視なら選びやすいメーカー"
+    ]
+  },
+  mitsubishi:{
+    name:"三菱",
+    title:"センサー・節電・自分で掃除したい方におすすめ",
+    tags:["センサー","節電","掃除しやすい"],
+    points:[
+      "センサーが優秀で暑がっている人・寒がっている人を見分けやすい",
       "人に合わせた運転で節電にもつながりやすい",
       "汚れが付きにくいコーティングでお手入れしやすい",
-      "熱交換器の近くまで外して自分でしっかり掃除しやすい",
-      "室外機が小さめで置き場所が不安な方にもおすすめ"
-    ];
-  }
-
-  if(state.concern==="wind" || state.room==="senior" || state.room==="bedroom" || state.room==="pets"){
-    maker="東芝";
-    icon="🍃";
-    title="風あたりが苦手・子供やペットがいるならこれ";
-    badges=["無風感","子供","ペット"];
-    points=[
+      "熱交換器の近くまで外して自分でしっかり掃除しやすい"
+    ]
+  },
+  toshiba:{
+    name:"東芝",
+    title:"風あたりが苦手・子供やペットがいる方におすすめ",
+    tags:["無風感","子供","ペット"],
+    points:[
       "無風感冷房で直接風が当たりにくい",
       "高齢の方・女性・小さいお子様にもおすすめ",
       "二段ベッドなどで片方だけ寒い、を減らしやすい",
       "停電後に自動でリスタートしてくれるので安心"
-    ];
-  }
-
-  if(state.concern==="smell" || state.cleaning==="smell"){
-    maker="Panasonic";
-    icon="✨";
-    title="ニオイ・空気ケア・自動排出ならこれ";
-    badges=["ナノイー","ニオイ","自動排出"];
-    points=[
-      "ナノイーXでニオイ対策に強い",
+    ]
+  },
+  panasonic:{
+    name:"Panasonic",
+    title:"ニオイ・空気ケア・自動排出重視におすすめ",
+    tags:["ナノイー","ニオイ","自動排出"],
+    points:[
+      "ナノイーでニオイ対策に強い",
       "水で包むイオンなので長持ちしやすい",
       "ソファー・絨毯・カーテンなどのニオイにもおすすめ",
-      "自動排出があり、自分でお手入れしたい方にも向いている"
-    ];
+      "自動排出があり、お手入れ面も安心"
+    ]
+  },
+  sharp:{
+    name:"シャープ",
+    title:"花粉・ニオイ・空気環境重視におすすめ",
+    tags:["プラズマクラスター","花粉","ニオイ"],
+    points:[
+      "プラズマクラスターで空気環境を整えやすい",
+      "ニオイ対策や除菌を重視する方におすすめ",
+      "花粉が気になる方にも選びやすい",
+      "空気ケア重視の方に向いている"
+    ]
+  },
+  general:{
+    name:"ゼネラル",
+    title:"本体代・除菌・お手入れ重視におすすめ",
+    tags:["本体代","55℃お湯除菌","コスパ"],
+    points:[
+      "本体価格を抑えたい方におすすめ",
+      "55℃のお湯で除菌できる機能が魅力",
+      "温風ではなくお湯なので除菌効果を感じやすい",
+      "Wシリーズ・Lシリーズは奥まで外してお手入れしやすい"
+    ]
+  }
+};
+
+function recommend(){
+  if(state.concern==="bodyPrice") return ["general","sharp"];
+  if(state.concern==="electric") return ["daikin","mitsubishi"];
+  if(state.concern==="smell") return ["panasonic","sharp"];
+  if(state.concern==="wind") return ["toshiba","daikin"];
+  if(state.concern==="power") return ["daikin","mitsubishi"];
+  if(state.concern==="support") return ["daikin","hitachi"];
+  if(state.concern==="kidsPets") return ["toshiba","mitsubishi"];
+
+  if(state.concern==="clean"){
+    if(state.cleaning==="auto") return ["hitachi","panasonic"];
+    if(state.cleaning==="self") return ["mitsubishi","general"];
+    if(state.cleaning==="sterilize") return ["general","hitachi"];
+    if(state.cleaning==="smell") return ["panasonic","sharp"];
   }
 
-  if(state.concern==="power" || state.concern==="support" || state.room==="ldk"){
-    maker="ダイキン";
-    icon="🌬️";
-    title="広いお部屋やパワーが必要ならこれ";
-    badges=["パワー","快適性","365日窓口"];
-    points=[
-      "設定温度到達後も弱運転で温度を保ちやすい",
-      "広いリビングやLDKでも快適に使いやすい",
-      "ストリーマで菌から対策しやすい",
-      "空調専門メーカーで365日メーカー窓口があり安心"
-    ];
-  }
-
-  return {maker,icon,title,badges,points};
+  return ["daikin","mitsubishi"];
 }
 
 function makerResult(){
-  const r=makerData();
+  const [first,second]=recommend();
+  const one=makers[first];
+  const two=makers[second];
 
   document.getElementById("screen").innerHTML=`
   <div class="card">
     <h1>メーカー診断結果</h1>
-    <div class="sub">あなたにおすすめ</div>
-    <div class="resultPrice">${r.icon} ${r.maker}</div>
-    <p class="sub">${r.title}</p>
+    <p class="sub">あなたにおすすめの上位2メーカー</p>
 
-    <div>
-      ${r.badges.map(b=>`<span class="badge">${b}</span>`).join("")}
-    </div>
-
-    <div class="notice">
-      <strong>おすすめポイント</strong><br>
-      ${r.points.map(p=>"✅ "+p).join("<br>")}
-    </div>
+    ${makerBox("🥇 第1候補",one)}
+    ${makerBox("🥈 第2候補",two)}
 
     <div class="notice">
       👷 最終的にはお部屋の広さ・設置場所・在庫機種に合わせてスタッフがご案内します。
@@ -484,6 +474,18 @@ function makerResult(){
 
     <button class="btn" onclick="back()">← 戻る</button>
     <button class="btn primary" onclick="resetAll()">ホームへ戻る</button>
+  </div>`;
+}
+
+function makerBox(rank,m){
+  return `
+  <div class="rankBox">
+    <div class="rankTitle">${rank}　${m.name}</div>
+    <div class="rankSub">${m.title}</div>
+    <div>${m.tags.map(t=>`<span class="badge">${t}</span>`).join("")}</div>
+    <div class="rankPoint">
+      ${m.points.map(p=>"✅ "+p).join("<br>")}
+    </div>
   </div>`;
 }
 
