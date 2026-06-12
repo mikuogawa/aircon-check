@@ -8,17 +8,84 @@
 body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;background:#f3f6fb;color:#111}
 .app{max-width:1450px;margin:auto;min-height:100vh;padding:10px}
 .card{background:white;border-radius:28px;padding:24px;box-shadow:0 8px 26px #00000014;text-align:center}
+
+/* ホーム画面 */
 .homeFull{min-height:calc(100vh - 20px);padding:0;overflow:hidden}
 .homeSplit{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 20px)}
-.homePanel{border:0;padding:30px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-weight:900}
-.homePanel.maker{background:#eef7ff;color:#003b8f}
-.homePanel.cost{background:#effbea;color:#00754a}
-.homePanelTitle{font-size:64px;line-height:1.2;margin-bottom:34px}
-.homePanelIcon{font-size:74px;margin-bottom:34px}
-.homePanelSub{font-size:30px;line-height:1.6;color:#222;margin-bottom:46px}
-.homeStart{border:0;border-radius:999px;padding:22px 70px;color:white;font-size:34px;font-weight:900;box-shadow:0 8px 18px #0002}
-.homePanel.maker .homeStart{background:#0068ff}
-.homePanel.cost .homeStart{background:#009b61}
+.homePanel{
+  border:0;
+  padding:52px 40px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  font-weight:900;
+  position:relative;
+  overflow:hidden;
+}
+.homePanel:before{
+  content:"";
+  position:absolute;
+  inset:-20%;
+  background:
+    repeating-conic-gradient(from 0deg, #ffffff66 0deg, #ffffff66 2deg, transparent 2deg, transparent 10deg);
+  opacity:.45;
+  z-index:0;
+}
+.homePanel>*{position:relative;z-index:1}
+.homePanel.maker{
+  background:radial-gradient(circle at center,#ffffff 0%,#e9f6ff 42%,#d7efff 100%);
+  color:#003b8f;
+}
+.homePanel.cost{
+  background:radial-gradient(circle at center,#ffffff 0%,#efffe8 42%,#def8d6 100%);
+  color:#00754a;
+}
+.homePanelTitle{
+  font-size:72px;
+  line-height:1.18;
+  letter-spacing:.02em;
+  margin-bottom:64px;
+}
+.homePanelSub{
+  font-size:30px;
+  line-height:1.55;
+  color:#111;
+  margin-bottom:72px;
+}
+.homeStart{
+  border:6px solid white;
+  border-radius:999px;
+  padding:28px 76px;
+  color:white;
+  font-size:42px;
+  font-weight:900;
+  box-shadow:0 10px 22px #0003;
+}
+.homePanel.maker .homeStart{background:#0054e8}
+.homePanel.cost .homeStart{background:#008b50}
+.homeStart span{font-size:48px;margin-left:18px}
+.accent{
+  display:inline-block;
+  color:inherit;
+  font-size:44px;
+  margin:0 18px;
+  transform:translateY(6px);
+}
+.spark{
+  position:absolute;
+  width:70px;
+  height:70px;
+  border-left:10px solid #ffd21f;
+  border-top:10px solid #ffd21f;
+  transform:rotate(25deg);
+  left:70px;
+  bottom:168px;
+  z-index:1;
+}
+.cost .spark{border-color:#ffd21f}
+
 .btn{display:block;width:100%;max-width:620px;margin:16px auto;padding:22px;border:3px solid #0046ad;background:white;color:#003b8f;border-radius:18px;font-size:28px;font-weight:900}
 .btn.primary{background:#0046ad;color:white}
 .btn.small{font-size:20px;padding:12px;max-width:260px}
@@ -64,7 +131,13 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu G
 .rankSub{font-size:22px;font-weight:900;margin:14px 0;color:#222;line-height:1.4}
 .rankPoint{font-size:20px;line-height:1.8;margin-top:14px}
 .badge{display:inline-block;background:#eaf2ff;color:#003b8f;border-radius:999px;padding:8px 16px;font-size:18px;font-weight:900;margin:5px}
-@media(max-width:700px){.homeSplit,.choiceGrid,.grid,.rankWrap{grid-template-columns:1fr}.homePanelTitle{font-size:38px}}
+
+@media(max-width:700px){
+  .homeSplit,.choiceGrid,.grid,.rankWrap{grid-template-columns:1fr}
+  .homePanelTitle{font-size:42px}
+  .homePanelSub{font-size:22px}
+  .homeStart{font-size:28px;padding:20px 42px}
+}
 </style>
 </head>
 <body>
@@ -111,17 +184,25 @@ document.getElementById("screen").innerHTML=`
 <div class="card homeFull">
   <div class="homeSplit">
     <button class="homePanel maker" onclick="next('makerConcern')">
+      <div class="spark"></div>
       <div class="homePanelTitle">エアコン<br>メーカー診断</div>
-      <div class="homePanelIcon">▭</div>
-      <div class="homePanelSub">あなたに合う<br>エアコンメーカーを診断！</div>
-      <div class="homeStart">診断をはじめる</div>
+      <div class="homePanelSub">
+        <span class="accent">＼</span>
+        あなたに合う<br>エアコンメーカーを診断！
+        <span class="accent">／</span>
+      </div>
+      <div class="homeStart">診断をはじめる！<span>›</span></div>
     </button>
 
     <button class="homePanel cost" onclick="next('type')">
+      <div class="spark"></div>
       <div class="homePanelTitle">工事費<br>診断</div>
-      <div class="homePanelIcon">¥</div>
-      <div class="homePanelSub">設置費用の<br>目安を診断！</div>
-      <div class="homeStart">診断をはじめる</div>
+      <div class="homePanelSub">
+        <span class="accent">＼</span>
+        設置費用の<br>目安を診断！
+        <span class="accent">／</span>
+      </div>
+      <div class="homeStart">診断をはじめる！<span>›</span></div>
     </button>
   </div>
 </div>`;
