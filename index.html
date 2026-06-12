@@ -8,15 +8,22 @@
 body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;background:#f3f6fb;color:#111}
 .app{max-width:1450px;margin:auto;min-height:100vh;padding:10px}
 .card{background:white;border-radius:28px;padding:24px;box-shadow:0 8px 26px #00000014;text-align:center}
-.big{font-size:66px;font-weight:900;color:#003b8f;line-height:1.15}
+.homeFull{min-height:calc(100vh - 20px);display:flex;flex-direction:column;padding:0;overflow:hidden}
+.homeTitle{font-size:56px;font-weight:900;color:#003b8f;margin:28px 0 8px}
+.homeLead{font-size:30px;font-weight:900;margin:0 0 22px}
+.homeSplit{display:grid;grid-template-columns:1fr 1fr;flex:1}
+.homePanel{border:0;background:#eef7ff;color:#003b8f;padding:42px 28px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:900}
+.homePanel.cost{background:#effaf1;color:#00754a}
+.homePanelTitle{font-size:48px;line-height:1.25}
+.homePanelSub{font-size:22px;line-height:1.6;margin:24px 0}
+.homePanelIcon{font-size:54px;margin:12px 0}
+.homeStart{background:#0046ad;color:white;border:0;border-radius:999px;padding:18px 46px;font-size:24px;font-weight:900}
+.cost .homeStart{background:#008b5a}
+.homeTap{font-size:21px;margin-top:18px}
 .sub{font-size:32px;font-weight:900;line-height:1.5;margin:18px 0}
 .btn{display:block;width:100%;max-width:620px;margin:16px auto;padding:22px;border:3px solid #0046ad;background:white;color:#003b8f;border-radius:18px;font-size:28px;font-weight:900}
 .btn.primary{background:#0046ad;color:white}
 .btn.small{font-size:20px;padding:12px;max-width:260px}
-.homeGrid{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:20px}
-.homeCard{border:4px solid #0046ad;border-radius:30px;background:white;padding:80px 30px;color:#003b8f;font-weight:900;font-size:52px;min-height:260px;display:flex;flex-direction:column;justify-content:center;align-items:center;cursor:pointer}
-.homeCard.primary{background:#0046ad;color:white}
-.homeTime{font-size:34px;margin-top:18px;font-weight:700;opacity:.95}
 .choiceGrid,.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 .choice{border:3px solid #d7e0f0;border-radius:20px;background:white;padding:24px;font-weight:900;color:#003b8f;text-align:left}
 .choiceNo{display:inline-flex;width:42px;height:42px;border-radius:50%;background:#eaf2ff;align-items:center;justify-content:center;font-size:22px;margin-right:14px}
@@ -24,6 +31,7 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu G
 .choiceDesc{display:block;color:#333;font-size:18px;margin-top:10px;padding-left:58px;line-height:1.4}
 .option{border:3px solid #cfd8e8;border-radius:20px;background:white;padding:24px 16px;font-size:28px;font-weight:900;color:#003b8f}
 .notice{background:#fff8dc;border-radius:16px;padding:18px;margin-top:20px;text-align:left;font-size:20px;line-height:1.8}
+.homeNotice{margin:0 24px 24px}
 .progress{height:10px;background:#d8deea;border-radius:10px;margin-top:16px;overflow:hidden}
 .bar{height:100%;background:#0068ff}
 .resultPrice{font-size:68px;font-weight:900;color:#003b8f;margin:16px}
@@ -49,7 +57,7 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu G
 .resultTypeMain{font-size:30px;font-weight:900;margin-top:6px}
 .resultTypeText{font-size:20px;color:#222;margin-top:8px;line-height:1.5}
 .rankWrap{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px}
-.rankBox{border-radius:24px;padding:26px;text-align:left;box-shadow:0 8px 22px #00000012;position:relative;overflow:hidden}
+.rankBox{border-radius:24px;padding:26px;text-align:left;box-shadow:0 8px 22px #00000012}
 .rankBox.first{background:linear-gradient(135deg,#ffffff,#eef5ff);border:4px solid #0068ff}
 .rankBox.second{background:#ffffff;border:3px solid #d8e3f7}
 .rankLabel{display:inline-block;background:#003b8f;color:white;border-radius:999px;padding:8px 18px;font-size:18px;font-weight:900;margin-bottom:12px}
@@ -58,8 +66,7 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu G
 .rankSub{font-size:22px;font-weight:900;margin:14px 0;color:#222;line-height:1.4}
 .rankPoint{font-size:20px;line-height:1.8;margin-top:14px}
 .badge{display:inline-block;background:#eaf2ff;color:#003b8f;border-radius:999px;padding:8px 16px;font-size:18px;font-weight:900;margin:5px}
-.first .badge{background:#dcecff}
-@media(max-width:700px){.homeGrid,.choiceGrid,.grid,.rankWrap{grid-template-columns:1fr}.big{font-size:42px}.homeCard{font-size:34px;min-height:180px;padding:40px 20px}}
+@media(max-width:700px){.homeSplit,.choiceGrid,.grid,.rankWrap{grid-template-columns:1fr}.homeTitle{font-size:38px}.homePanelTitle{font-size:34px}}
 </style>
 </head>
 <body>
@@ -78,40 +85,14 @@ const removalFee=6600;
 const recycleFee=4070;
 
 const installNew={
-standard:{small:0,medium:0,large:0},
-wall:{small:16500,medium:18700,large:18700},
-koudan:{small:16500,medium:18700,large:18700},
-roof:{small:15400,medium:17600,large:17600},
-two:{small:19800,medium:20900,large:20900},
-second:{small:19800,medium:19800,large:19800},
-third:{small:36300,medium:36300,large:36300}
+standard:{small:0,medium:0,large:0},wall:{small:16500,medium:18700,large:18700},koudan:{small:16500,medium:18700,large:18700},roof:{small:15400,medium:17600,large:17600},two:{small:19800,medium:20900,large:20900},second:{small:19800,medium:19800,large:19800},third:{small:36300,medium:36300,large:36300}
 };
-
 const installReplace={
-standard:{small:0,medium:0,large:0},
-wall:{small:8250,medium:10450,large:10450},
-koudan:{small:8250,medium:10450,large:10450},
-roof:{small:7700,medium:9900,large:9900},
-twoUpper:{small:2750,medium:3300,large:3300},
-twoLower:{small:7150,medium:8250,large:8250},
-second:{small:19800,medium:19800,large:19800},
-third:{small:36300,medium:36300,large:36300}
+standard:{small:0,medium:0,large:0},wall:{small:8250,medium:10450,large:10450},koudan:{small:8250,medium:10450,large:10450},roof:{small:7700,medium:9900,large:9900},twoUpper:{small:2750,medium:3300,large:3300},twoLower:{small:7150,medium:8250,large:8250},second:{small:19800,medium:19800,large:19800},third:{small:36300,medium:36300,large:36300}
 };
 
 function yen(n){return "¥"+n.toLocaleString()+"〜"}
-function label(v){return {
-small:"6〜12畳",medium:"14〜18畳",large:"20畳以上",
-new:"新規取付",replace:"買い替え",
-senior:"65歳以上",disabled:"障害者手帳あり",none:"該当しない",unknown:"わからない",
-house:"戸建て",apartment:"マンション/アパート",
-first:"1階",secondFloor:"2階",thirdFloor:"3階",upper:"2階以上",
-yes:"はい",no:"いいえ",
-standard:"標準設置",wall:"壁掛け",koudan:"公団吊り",roof:"屋根置き",two:"二段置き",
-second:"室内機2階→室外機1階",third:"室内機3階→室外機1階",
-normal:"標準配管",hidden:"隠蔽配管",
-upperPos:"上段",lowerPos:"下段",
-indoor:"内階段",outdoor:"外階段"
-}[v]||v}
+function label(v){return {small:"6〜12畳",medium:"14〜18畳",large:"20畳以上",new:"新規取付",replace:"買い替え",senior:"65歳以上",disabled:"障害者手帳あり",none:"該当しない",unknown:"わからない",house:"戸建て",apartment:"マンション/アパート",first:"1階",secondFloor:"2階",thirdFloor:"3階",upper:"2階以上",yes:"はい",no:"いいえ",standard:"標準設置",wall:"壁掛け",koudan:"公団吊り",roof:"屋根置き",two:"二段置き",second:"室内機2階→室外機1階",third:"室内機3階→室外機1階",normal:"標準配管",hidden:"隠蔽配管",upperPos:"上段",lowerPos:"下段",indoor:"内階段",outdoor:"外階段"}[v]||v}
 
 function next(to){history.push(step);step=to;render()}
 function back(){if(history.length){step=history.pop();render()}}
@@ -129,22 +110,29 @@ ${history.length?`<button class="btn small" onclick="back()">← 戻る</button>
 function render(){
 if(step==="home"){
 document.getElementById("screen").innerHTML=`
-<div class="card">
-<div class="big">エアコン診断ツール</div>
-<p class="sub">エアコン選びをもっとカンタンに！</p>
+<div class="card homeFull">
+<div class="homeTitle">エアコン選びをもっとカンタンに！</div>
+<div class="homeLead">気になる診断をタップしてください</div>
 
-<div class="homeGrid">
-<button class="homeCard primary" onclick="next('type')">
-工事費診断
-<div class="homeTime">約1分</div>
+<div class="homeSplit">
+<button class="homePanel" onclick="next('makerConcern')">
+  <div class="homePanelTitle">後悔しない<br>メーカー診断</div>
+  <div class="homePanelIcon">▭</div>
+  <div class="homePanelSub">あなたに合う<br>エアコンメーカーを診断！</div>
+  <div class="homeStart">診断スタート</div>
+  <div class="homeTap">タップして診断</div>
 </button>
-<button class="homeCard" onclick="next('makerConcern')">
-メーカー診断
-<div class="homeTime">約30秒</div>
+
+<button class="homePanel cost" onclick="next('type')">
+  <div class="homePanelTitle">工事費<br>診断</div>
+  <div class="homePanelIcon">⌂</div>
+  <div class="homePanelSub">設置条件から<br>工事費の目安を診断！</div>
+  <div class="homeStart">診断スタート</div>
+  <div class="homeTap">タップして診断</div>
 </button>
 </div>
 
-<div class="notice">
+<div class="notice homeNotice">
 ⚠️ 表示金額は概算です。<br>
 ⚠️ 設置状況により追加工事費が発生する場合があります。<br>
 👷 詳しくは店舗スタッフまでお気軽にご相談ください。
@@ -261,57 +249,16 @@ if(step==="makerCleaning") screen("お掃除はどちらが近いですか？",`
 if(step==="makerResult") makerResult();
 }
 
-function goTokyo(v){
-state.tokyo=v;
-if(v==="no"){next("size");return}
-next("zero");
-}
-
-function goZero(v){
-state.zero=v;
-if(state.type==="replace" && !(v==="senior"||v==="disabled")){
-next("oldAge");
-return;
-}
-next("size");
-}
-
-function goInstall(v){
-state.install=v;
-if(v==="two"){next("twoPos");return}
-if(state.building==="house" && v==="standard"){next("houseStandardFloor");return}
-next("piping");
-}
-
-function goPiping(v){
-state.piping=v;
-next("result");
-}
-
-function stairsFee(){
-const s=state.size;
-if(state.stairs==="indoor") return s==="small" ? 2200 : 3300;
-if(state.stairs==="outdoor") return 2200;
-return 0;
-}
+function goTokyo(v){state.tokyo=v;if(v==="no"){next("size");return}next("zero")}
+function goZero(v){state.zero=v;if(state.type==="replace" && !(v==="senior"||v==="disabled")){next("oldAge");return}next("size")}
+function goInstall(v){state.install=v;if(v==="two"){next("twoPos");return}if(state.building==="house" && v==="standard"){next("houseStandardFloor");return}next("piping")}
+function goPiping(v){state.piping=v;next("result")}
+function stairsFee(){const s=state.size;if(state.stairs==="indoor") return s==="small"?2200:3300;if(state.stairs==="outdoor") return 2200;return 0}
 
 function calc(){
-const s=state.size;
-let total=base[s]||0;
-
-if(state.type==="new"){
-total+=(installNew[state.install]?.[s]||0);
-}else{
-if(state.install==="two"){
-const key=state.twoPos==="lowerPos" ? "twoLower" : "twoUpper";
-total+=(installReplace[key]?.[s]||0);
-}else{
-total+=(installReplace[state.install]?.[s]||0);
-}
-total+=removalFee;
-total+=recycleFee;
-}
-
+const s=state.size;let total=base[s]||0;
+if(state.type==="new"){total+=(installNew[state.install]?.[s]||0)}
+else{if(state.install==="two"){const key=state.twoPos==="lowerPos"?"twoLower":"twoUpper";total+=(installReplace[key]?.[s]||0)}else{total+=(installReplace[state.install]?.[s]||0)}total+=removalFee+recycleFee}
 if(state.piping==="hidden") total+=8800;
 total+=stairsFee();
 return total;
@@ -319,58 +266,26 @@ return total;
 
 function zeroText(){
 if(state.tokyo!=="yes") return "";
-if(state.zero==="senior" || state.zero==="disabled"){
-return "🟢 対象機種が一律80,000円引きになる場合があります。詳しくはスタッフまでご相談ください。";
-}
-if(state.type==="replace"){
-return "🟢 東京都の補助制度の対象となる可能性があります。";
-}
+if(state.zero==="senior"||state.zero==="disabled") return "🟢 対象機種が一律80,000円引きになる場合があります。詳しくはスタッフまでご相談ください。";
+if(state.type==="replace") return "🟢 東京都の補助制度の対象となる可能性があります。";
 return "⚪ 東京都の補助制度についてはスタッフへご相談ください。";
 }
 
 function result(){
 const total=calc();
-
-const details=[
-label(state.type),
-state.tokyo ? "東京都："+label(state.tokyo) : "",
-state.zero ? label(state.zero) : "",
-label(state.size),
-label(state.building),
-state.building==="house" && state.houseFloor ? "室内機の階数："+label(state.houseFloor) : "",
-state.building==="apartment" ? "階数："+label(state.floor) : "",
-state.elevator ? "エレベーター："+label(state.elevator) : "",
-state.stairs ? "階段搬入："+label(state.stairs) : "",
-"設置方法："+label(state.install),
-state.install==="two"&&state.twoPos ? "二段置き："+label(state.twoPos) : "",
-"配管："+label(state.piping),
-state.oldAge ? "使用年数："+(state.oldAge==="15over"?"15年以上":state.oldAge==="under15"?"15年未満":"わからない") : ""
-].filter(Boolean);
+const details=[label(state.type),state.tokyo?"東京都："+label(state.tokyo):"",state.zero?label(state.zero):"",label(state.size),label(state.building),state.building==="house"&&state.houseFloor?"室内機の階数："+label(state.houseFloor):"",state.building==="apartment"?"階数："+label(state.floor):"",state.elevator?"エレベーター："+label(state.elevator):"",state.stairs?"階段搬入："+label(state.stairs):"","設置方法："+label(state.install),state.install==="two"&&state.twoPos?"二段置き："+label(state.twoPos):"","配管："+label(state.piping),state.oldAge?"使用年数："+(state.oldAge==="15over"?"15年以上":state.oldAge==="under15"?"15年未満":"わからない"):""].filter(Boolean);
 
 document.getElementById("screen").innerHTML=`
 <div class="card">
 <h1>診断結果</h1>
 <div class="sub">概算工事費総額</div>
 <div class="resultPrice">${yen(total)}</div>
-${state.type==="replace" ? `<p class="sub">取り外し料・家電リサイクル料を含みます</p>` : ""}
+${state.type==="replace"?`<p class="sub">取り外し料・家電リサイクル料を含みます</p>`:""}
 <p class="sub">この画面をスタッフへお見せください</p>
-
-<div class="detail">
-<strong>診断内容</strong><br>
-${details.map(x=>"・"+x).join("<br>")}
-${state.type==="replace" ? `<br>・取り外し料：${yen(removalFee)}<br>・家電リサイクル料：${yen(recycleFee)}` : ""}
-<br><br>${zeroText()}
-</div>
-
-<div class="notice">
-⚠️ 表示金額は概算工事費です。<br>
-${state.type==="replace" ? "⚠️ 表示金額には取り外し料・家電リサイクル料を含みます。<br>" : ""}
-⚠️ 設置状況により追加工事費が発生する場合があります。<br>
-${state.piping==="unknown" ? "⚠️ 配管種類が不明のため、追加料金が発生する場合があります。<br>" : ""}
-${state.stairs==="unknown" ? "⚠️ 室外機の搬入経路によって追加料金が発生する場合があります。<br>" : ""}
-👷 詳しくは店舗スタッフまでお気軽にご相談ください。
-</div>
-
+<div class="detail"><strong>診断内容</strong><br>${details.map(x=>"・"+x).join("<br>")}
+${state.type==="replace"?`<br>・取り外し料：${yen(removalFee)}<br>・家電リサイクル料：${yen(recycleFee)}`:""}
+<br><br>${zeroText()}</div>
+<div class="notice">⚠️ 表示金額は概算工事費です。<br>${state.type==="replace"?"⚠️ 表示金額には取り外し料・家電リサイクル料を含みます。<br>":""}⚠️ 設置状況により追加工事費が発生する場合があります。<br>${state.piping==="unknown"?"⚠️ 配管種類が不明のため、追加料金が発生する場合があります。<br>":""}${state.stairs==="unknown"?"⚠️ 室外機の搬入経路によって追加料金が発生する場合があります。<br>":""}👷 詳しくは店舗スタッフまでお気軽にご相談ください。</div>
 <button class="btn primary" onclick="next('makerConcern')">メーカー診断へ進む</button>
 <button class="btn" onclick="resetAll()">ホームへ戻る</button>
 </div>`;
@@ -394,7 +309,6 @@ if(state.concern==="wind") return ["toshiba","daikin"];
 if(state.concern==="power") return ["daikin","panasonic"];
 if(state.concern==="support") return ["daikin","hitachi"];
 if(state.concern==="kidsPets") return ["toshiba","mitsubishi"];
-
 if(state.concern==="clean"){
 if(state.cleaning==="auto") return ["hitachi","panasonic"];
 if(state.cleaning==="self") return ["mitsubishi","general"];
@@ -406,54 +320,23 @@ return ["daikin","mitsubishi"];
 
 function makerResult(){
 const [first,second]=recommend();
-const one=makers[first];
-const two=makers[second];
-
+const one=makers[first], two=makers[second];
 document.getElementById("screen").innerHTML=`
 <div class="card">
-<div class="resultHero">
-<div class="resultHeroTitle">メーカー診断結果</div>
-<div class="resultHeroMain">あなたにおすすめのメーカー</div>
-</div>
-
-<div class="resultType">
-<div class="resultTypeSmall">あなたはこんな方におすすめ</div>
-<div class="resultTypeMain">${one.typeText}</div>
-<div class="resultTypeText">診断結果から、${one.name}がお客様のご要望に最も近いメーカーです。</div>
-</div>
-
-<div class="rankWrap">
-${makerBox("第1候補",one,"first")}
-${makerBox("第2候補",two,"second")}
-</div>
-
-<div class="notice">
-👷 最終的にはお部屋の広さ・設置場所・在庫機種に合わせてスタッフがご案内します。
-</div>
-
+<div class="resultHero"><div class="resultHeroTitle">メーカー診断結果</div><div class="resultHeroMain">あなたにおすすめのメーカー</div></div>
+<div class="resultType"><div class="resultTypeSmall">あなたはこんな方におすすめ</div><div class="resultTypeMain">${one.typeText}</div><div class="resultTypeText">診断結果から、${one.name}がお客様のご要望に最も近いメーカーです。</div></div>
+<div class="rankWrap">${makerBox("第1候補",one,"first")}${makerBox("第2候補",two,"second")}</div>
+<div class="notice">👷 最終的にはお部屋の広さ・設置場所・在庫機種に合わせてスタッフがご案内します。</div>
 <button class="btn" onclick="back()">← 戻る</button>
 <button class="btn primary" onclick="resetAll()">ホームへ戻る</button>
 </div>`;
 }
 
 function makerBox(rank,m,type){
-return `
-<div class="rankBox ${type}">
-<div class="rankLabel">${rank}</div>
-<div class="rankTitle">${m.name}</div>
-<div class="rankSub">${m.title}</div>
-<div>${m.tags.map(t=>`<span class="badge">${t}</span>`).join("")}</div>
-<div class="rankPoint">${m.points.map(p=>"✅ "+p).join("<br>")}</div>
-</div>`;
+return `<div class="rankBox ${type}"><div class="rankLabel">${rank}</div><div class="rankTitle">${m.name}</div><div class="rankSub">${m.title}</div><div>${m.tags.map(t=>`<span class="badge">${t}</span>`).join("")}</div><div class="rankPoint">${m.points.map(p=>"✅ "+p).join("<br>")}</div></div>`;
 }
 
-function resetAll(){
-for(const k in state) delete state[k];
-history=[];
-step="home";
-render();
-}
-
+function resetAll(){for(const k in state) delete state[k];history=[];step="home";render()}
 render();
 </script>
 </body>
