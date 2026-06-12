@@ -8,22 +8,21 @@
 body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;background:#f3f6fb;color:#111}
 .app{max-width:1450px;margin:auto;min-height:100vh;padding:10px}
 .card{background:white;border-radius:28px;padding:24px;box-shadow:0 8px 26px #00000014;text-align:center}
-.homeFull{min-height:calc(100vh - 20px);display:flex;flex-direction:column;padding:0;overflow:hidden}
-.homeTitle{font-size:56px;font-weight:900;color:#003b8f;margin:28px 0 8px}
-.homeLead{font-size:30px;font-weight:900;margin:0 0 22px}
-.homeSplit{display:grid;grid-template-columns:1fr 1fr;flex:1}
-.homePanel{border:0;background:#eef7ff;color:#003b8f;padding:42px 28px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:900}
-.homePanel.cost{background:#effaf1;color:#00754a}
-.homePanelTitle{font-size:48px;line-height:1.25}
-.homePanelSub{font-size:22px;line-height:1.6;margin:24px 0}
-.homePanelIcon{font-size:54px;margin:12px 0}
-.homeStart{background:#0046ad;color:white;border:0;border-radius:999px;padding:18px 46px;font-size:24px;font-weight:900}
-.cost .homeStart{background:#008b5a}
-.homeTap{font-size:21px;margin-top:18px}
-.sub{font-size:32px;font-weight:900;line-height:1.5;margin:18px 0}
+.homeFull{min-height:calc(100vh - 20px);padding:0;overflow:hidden}
+.homeSplit{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 20px)}
+.homePanel{border:0;padding:30px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-weight:900}
+.homePanel.maker{background:#eef7ff;color:#003b8f}
+.homePanel.cost{background:#effbea;color:#00754a}
+.homePanelTitle{font-size:64px;line-height:1.2;margin-bottom:34px}
+.homePanelIcon{font-size:74px;margin-bottom:34px}
+.homePanelSub{font-size:30px;line-height:1.6;color:#222;margin-bottom:46px}
+.homeStart{border:0;border-radius:999px;padding:22px 70px;color:white;font-size:34px;font-weight:900;box-shadow:0 8px 18px #0002}
+.homePanel.maker .homeStart{background:#0068ff}
+.homePanel.cost .homeStart{background:#009b61}
 .btn{display:block;width:100%;max-width:620px;margin:16px auto;padding:22px;border:3px solid #0046ad;background:white;color:#003b8f;border-radius:18px;font-size:28px;font-weight:900}
 .btn.primary{background:#0046ad;color:white}
 .btn.small{font-size:20px;padding:12px;max-width:260px}
+.sub{font-size:32px;font-weight:900;line-height:1.5;margin:18px 0}
 .choiceGrid,.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 .choice{border:3px solid #d7e0f0;border-radius:20px;background:white;padding:24px;font-weight:900;color:#003b8f;text-align:left}
 .choiceNo{display:inline-flex;width:42px;height:42px;border-radius:50%;background:#eaf2ff;align-items:center;justify-content:center;font-size:22px;margin-right:14px}
@@ -31,7 +30,6 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu G
 .choiceDesc{display:block;color:#333;font-size:18px;margin-top:10px;padding-left:58px;line-height:1.4}
 .option{border:3px solid #cfd8e8;border-radius:20px;background:white;padding:24px 16px;font-size:28px;font-weight:900;color:#003b8f}
 .notice{background:#fff8dc;border-radius:16px;padding:18px;margin-top:20px;text-align:left;font-size:20px;line-height:1.8}
-.homeNotice{margin:0 24px 24px}
 .progress{height:10px;background:#d8deea;border-radius:10px;margin-top:16px;overflow:hidden}
 .bar{height:100%;background:#0068ff}
 .resultPrice{font-size:68px;font-weight:900;color:#003b8f;margin:16px}
@@ -66,7 +64,7 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu G
 .rankSub{font-size:22px;font-weight:900;margin:14px 0;color:#222;line-height:1.4}
 .rankPoint{font-size:20px;line-height:1.8;margin-top:14px}
 .badge{display:inline-block;background:#eaf2ff;color:#003b8f;border-radius:999px;padding:8px 16px;font-size:18px;font-weight:900;margin:5px}
-@media(max-width:700px){.homeSplit,.choiceGrid,.grid,.rankWrap{grid-template-columns:1fr}.homeTitle{font-size:38px}.homePanelTitle{font-size:34px}}
+@media(max-width:700px){.homeSplit,.choiceGrid,.grid,.rankWrap{grid-template-columns:1fr}.homePanelTitle{font-size:38px}}
 </style>
 </head>
 <body>
@@ -111,32 +109,21 @@ function render(){
 if(step==="home"){
 document.getElementById("screen").innerHTML=`
 <div class="card homeFull">
-<div class="homeTitle">エアコン選びをもっとカンタンに！</div>
-<div class="homeLead">気になる診断をタップしてください</div>
+  <div class="homeSplit">
+    <button class="homePanel maker" onclick="next('makerConcern')">
+      <div class="homePanelTitle">エアコン<br>メーカー診断</div>
+      <div class="homePanelIcon">▭</div>
+      <div class="homePanelSub">あなたに合う<br>エアコンメーカーを診断！</div>
+      <div class="homeStart">診断をはじめる</div>
+    </button>
 
-<div class="homeSplit">
-<button class="homePanel" onclick="next('makerConcern')">
-  <div class="homePanelTitle">後悔しない<br>メーカー診断</div>
-  <div class="homePanelIcon">▭</div>
-  <div class="homePanelSub">あなたに合う<br>エアコンメーカーを診断！</div>
-  <div class="homeStart">診断スタート</div>
-  <div class="homeTap">タップして診断</div>
-</button>
-
-<button class="homePanel cost" onclick="next('type')">
-  <div class="homePanelTitle">工事費<br>診断</div>
-  <div class="homePanelIcon">⌂</div>
-  <div class="homePanelSub">設置条件から<br>工事費の目安を診断！</div>
-  <div class="homeStart">診断スタート</div>
-  <div class="homeTap">タップして診断</div>
-</button>
-</div>
-
-<div class="notice homeNotice">
-⚠️ 表示金額は概算です。<br>
-⚠️ 設置状況により追加工事費が発生する場合があります。<br>
-👷 詳しくは店舗スタッフまでお気軽にご相談ください。
-</div>
+    <button class="homePanel cost" onclick="next('type')">
+      <div class="homePanelTitle">工事費<br>診断</div>
+      <div class="homePanelIcon">¥</div>
+      <div class="homePanelSub">設置費用の<br>目安を診断！</div>
+      <div class="homeStart">診断をはじめる</div>
+    </button>
+  </div>
 </div>`;
 return;
 }
