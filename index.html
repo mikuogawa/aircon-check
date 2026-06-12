@@ -11,18 +11,72 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu G
 
 .homeFull{min-height:calc(100vh - 20px);padding:0;overflow:hidden}
 .homeSplit{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 20px)}
-.homePanel{border:0;padding:52px 40px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-weight:900;position:relative;overflow:hidden}
-.homePanel:before{content:"";position:absolute;inset:-20%;background:repeating-conic-gradient(from 0deg,#ffffff66 0deg,#ffffff66 2deg,transparent 2deg,transparent 10deg);opacity:.45;z-index:0}
+.homePanel{
+  border:0;
+  padding:54px 38px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  font-weight:900;
+  position:relative;
+  overflow:hidden;
+}
+.homePanel:before{
+  content:"";
+  position:absolute;
+  inset:-25%;
+  background:repeating-conic-gradient(from 0deg,#ffffff80 0deg,#ffffff80 2deg,transparent 2deg,transparent 9deg);
+  opacity:.45;
+}
 .homePanel>*{position:relative;z-index:1}
-.homePanel.maker{background:radial-gradient(circle at center,#fff 0%,#e9f6ff 42%,#d7efff 100%);color:#003b8f}
-.homePanel.cost{background:radial-gradient(circle at center,#fff 0%,#efffe8 42%,#def8d6 100%);color:#00754a}
-.homePanelTitle{font-size:72px;line-height:1.18;letter-spacing:.02em;margin-bottom:62px}
-.homePanelSub{font-size:30px;font-weight:900;color:#111;margin:0 0 72px;white-space:nowrap}
-.homeStart{border:6px solid white;border-radius:999px;padding:28px 70px;min-width:520px;text-align:center;color:white;font-size:42px;font-weight:900;white-space:nowrap;box-shadow:0 10px 24px #0003}
+.homePanel.maker{
+  background:radial-gradient(circle at center,#fff 0%,#eef9ff 38%,#d9f0ff 100%);
+  color:#003b8f;
+}
+.homePanel.cost{
+  background:radial-gradient(circle at center,#fff 0%,#f4fff0 38%,#dff8d8 100%);
+  color:#00754a;
+}
+.homePanelTitle{
+  font-size:72px;
+  line-height:1.18;
+  margin-bottom:72px;
+  letter-spacing:.02em;
+}
+.homePanelSub{
+  font-size:30px;
+  font-weight:900;
+  color:#111;
+  margin:0 0 76px;
+  white-space:nowrap;
+}
+.homeStart{
+  border:6px solid white;
+  border-radius:999px;
+  padding:28px 70px;
+  min-width:520px;
+  text-align:center;
+  color:white;
+  font-size:42px;
+  font-weight:900;
+  white-space:nowrap;
+  box-shadow:0 10px 24px #0003;
+}
 .homePanel.maker .homeStart{background:#005cff}
 .homePanel.cost .homeStart{background:#009955}
-.spark{position:absolute;width:70px;height:70px;border-left:10px solid #ffd21f;border-top:10px solid #ffd21f;transform:rotate(25deg);left:70px;bottom:168px;z-index:1}
-
+.spark{
+  position:absolute;
+  left:68px;
+  bottom:170px;
+  width:70px;
+  height:70px;
+  border-left:10px solid #ffd21f;
+  border-top:10px solid #ffd21f;
+  transform:rotate(25deg);
+  z-index:1;
+}
 .btn{display:block;width:100%;max-width:620px;margin:16px auto;padding:22px;border:3px solid #0046ad;background:white;color:#003b8f;border-radius:18px;font-size:28px;font-weight:900}
 .btn.primary{background:#0046ad;color:white}
 .btn.small{font-size:20px;padding:12px;max-width:260px}
