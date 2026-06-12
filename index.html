@@ -9,82 +9,19 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu G
 .app{max-width:1450px;margin:auto;min-height:100vh;padding:10px}
 .card{background:white;border-radius:28px;padding:24px;box-shadow:0 8px 26px #00000014;text-align:center}
 
-/* ホーム画面 */
 .homeFull{min-height:calc(100vh - 20px);padding:0;overflow:hidden}
 .homeSplit{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 20px)}
-.homePanel{
-  border:0;
-  padding:52px 40px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  font-weight:900;
-  position:relative;
-  overflow:hidden;
-}
-.homePanel:before{
-  content:"";
-  position:absolute;
-  inset:-20%;
-  background:
-    repeating-conic-gradient(from 0deg, #ffffff66 0deg, #ffffff66 2deg, transparent 2deg, transparent 10deg);
-  opacity:.45;
-  z-index:0;
-}
+.homePanel{border:0;padding:52px 40px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-weight:900;position:relative;overflow:hidden}
+.homePanel:before{content:"";position:absolute;inset:-20%;background:repeating-conic-gradient(from 0deg,#ffffff66 0deg,#ffffff66 2deg,transparent 2deg,transparent 10deg);opacity:.45;z-index:0}
 .homePanel>*{position:relative;z-index:1}
-.homePanel.maker{
-  background:radial-gradient(circle at center,#ffffff 0%,#e9f6ff 42%,#d7efff 100%);
-  color:#003b8f;
-}
-.homePanel.cost{
-  background:radial-gradient(circle at center,#ffffff 0%,#efffe8 42%,#def8d6 100%);
-  color:#00754a;
-}
-.homePanelTitle{
-  font-size:72px;
-  line-height:1.18;
-  letter-spacing:.02em;
-  margin-bottom:64px;
-}
-.homePanelSub{
-  font-size:30px;
-  line-height:1.55;
-  color:#111;
-  margin-bottom:72px;
-}
-.homeStart{
-  border:6px solid white;
-  border-radius:999px;
-  padding:28px 76px;
-  color:white;
-  font-size:42px;
-  font-weight:900;
-  box-shadow:0 10px 22px #0003;
-}
-.homePanel.maker .homeStart{background:#0054e8}
-.homePanel.cost .homeStart{background:#008b50}
-.homeStart span{font-size:48px;margin-left:18px}
-.accent{
-  display:inline-block;
-  color:inherit;
-  font-size:44px;
-  margin:0 18px;
-  transform:translateY(6px);
-}
-.spark{
-  position:absolute;
-  width:70px;
-  height:70px;
-  border-left:10px solid #ffd21f;
-  border-top:10px solid #ffd21f;
-  transform:rotate(25deg);
-  left:70px;
-  bottom:168px;
-  z-index:1;
-}
-.cost .spark{border-color:#ffd21f}
+.homePanel.maker{background:radial-gradient(circle at center,#fff 0%,#e9f6ff 42%,#d7efff 100%);color:#003b8f}
+.homePanel.cost{background:radial-gradient(circle at center,#fff 0%,#efffe8 42%,#def8d6 100%);color:#00754a}
+.homePanelTitle{font-size:72px;line-height:1.18;letter-spacing:.02em;margin-bottom:62px}
+.homePanelSub{font-size:30px;font-weight:900;color:#111;margin:0 0 72px;white-space:nowrap}
+.homeStart{border:6px solid white;border-radius:999px;padding:28px 70px;min-width:520px;text-align:center;color:white;font-size:42px;font-weight:900;white-space:nowrap;box-shadow:0 10px 24px #0003}
+.homePanel.maker .homeStart{background:#005cff}
+.homePanel.cost .homeStart{background:#009955}
+.spark{position:absolute;width:70px;height:70px;border-left:10px solid #ffd21f;border-top:10px solid #ffd21f;transform:rotate(25deg);left:70px;bottom:168px;z-index:1}
 
 .btn{display:block;width:100%;max-width:620px;margin:16px auto;padding:22px;border:3px solid #0046ad;background:white;color:#003b8f;border-radius:18px;font-size:28px;font-weight:900}
 .btn.primary{background:#0046ad;color:white}
@@ -131,13 +68,7 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu G
 .rankSub{font-size:22px;font-weight:900;margin:14px 0;color:#222;line-height:1.4}
 .rankPoint{font-size:20px;line-height:1.8;margin-top:14px}
 .badge{display:inline-block;background:#eaf2ff;color:#003b8f;border-radius:999px;padding:8px 16px;font-size:18px;font-weight:900;margin:5px}
-
-@media(max-width:700px){
-  .homeSplit,.choiceGrid,.grid,.rankWrap{grid-template-columns:1fr}
-  .homePanelTitle{font-size:42px}
-  .homePanelSub{font-size:22px}
-  .homeStart{font-size:28px;padding:20px 42px}
-}
+@media(max-width:700px){.homeSplit,.choiceGrid,.grid,.rankWrap{grid-template-columns:1fr}.homePanelTitle{font-size:42px}.homePanelSub{white-space:normal;font-size:22px}.homeStart{font-size:28px;min-width:0;padding:20px 42px}}
 </style>
 </head>
 <body>
@@ -146,36 +77,24 @@ body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu G
 <script>
 const imgInstall="images/0AB48FD8-F66B-4575-B338-9394A00EAE6C.png";
 const imgPiping="images/D79A56E4-7DC8-452D-B6C5-E52DCB0C0CDC.png";
-
 const state={};
 let step="home";
 let history=[];
-
 const base={small:20350,medium:24750,large:28050};
 const removalFee=6600;
 const recycleFee=4070;
 
-const installNew={
-standard:{small:0,medium:0,large:0},wall:{small:16500,medium:18700,large:18700},koudan:{small:16500,medium:18700,large:18700},roof:{small:15400,medium:17600,large:17600},two:{small:19800,medium:20900,large:20900},second:{small:19800,medium:19800,large:19800},third:{small:36300,medium:36300,large:36300}
-};
-const installReplace={
-standard:{small:0,medium:0,large:0},wall:{small:8250,medium:10450,large:10450},koudan:{small:8250,medium:10450,large:10450},roof:{small:7700,medium:9900,large:9900},twoUpper:{small:2750,medium:3300,large:3300},twoLower:{small:7150,medium:8250,large:8250},second:{small:19800,medium:19800,large:19800},third:{small:36300,medium:36300,large:36300}
-};
+const installNew={standard:{small:0,medium:0,large:0},wall:{small:16500,medium:18700,large:18700},koudan:{small:16500,medium:18700,large:18700},roof:{small:15400,medium:17600,large:17600},two:{small:19800,medium:20900,large:20900},second:{small:19800,medium:19800,large:19800},third:{small:36300,medium:36300,large:36300}};
+const installReplace={standard:{small:0,medium:0,large:0},wall:{small:8250,medium:10450,large:10450},koudan:{small:8250,medium:10450,large:10450},roof:{small:7700,medium:9900,large:9900},twoUpper:{small:2750,medium:3300,large:3300},twoLower:{small:7150,medium:8250,large:8250},second:{small:19800,medium:19800,large:19800},third:{small:36300,medium:36300,large:36300}};
 
 function yen(n){return "¥"+n.toLocaleString()+"〜"}
 function label(v){return {small:"6〜12畳",medium:"14〜18畳",large:"20畳以上",new:"新規取付",replace:"買い替え",senior:"65歳以上",disabled:"障害者手帳あり",none:"該当しない",unknown:"わからない",house:"戸建て",apartment:"マンション/アパート",first:"1階",secondFloor:"2階",thirdFloor:"3階",upper:"2階以上",yes:"はい",no:"いいえ",standard:"標準設置",wall:"壁掛け",koudan:"公団吊り",roof:"屋根置き",two:"二段置き",second:"室内機2階→室外機1階",third:"室内機3階→室外機1階",normal:"標準配管",hidden:"隠蔽配管",upperPos:"上段",lowerPos:"下段",indoor:"内階段",outdoor:"外階段"}[v]||v}
-
 function next(to){history.push(step);step=to;render()}
 function back(){if(history.length){step=history.pop();render()}}
 function go(key,val,to){state[key]=val;next(to)}
 
 function screen(title,html,percent){
-document.getElementById("screen").innerHTML=`
-<div class="card">
-${history.length?`<button class="btn small" onclick="back()">← 戻る</button>`:""}
-<div class="progress"><div class="bar" style="width:${percent}%"></div></div>
-<h1>${title}</h1>${html}
-</div>`;
+document.getElementById("screen").innerHTML=`<div class="card">${history.length?`<button class="btn small" onclick="back()">← 戻る</button>`:""}<div class="progress"><div class="bar" style="width:${percent}%"></div></div><h1>${title}</h1>${html}</div>`;
 }
 
 function render(){
@@ -186,112 +105,34 @@ document.getElementById("screen").innerHTML=`
     <button class="homePanel maker" onclick="next('makerConcern')">
       <div class="spark"></div>
       <div class="homePanelTitle">エアコン<br>メーカー診断</div>
-      <div class="homePanelSub">
-        <span class="accent">＼</span>
-        あなたに合う<br>エアコンメーカーを診断！
-        <span class="accent">／</span>
-      </div>
-      <div class="homeStart">診断をはじめる！<span>›</span></div>
+      <div class="homePanelSub">あなたに合うエアコンメーカーを診断！</div>
+      <div class="homeStart">診断をはじめる！ ＞</div>
     </button>
-
     <button class="homePanel cost" onclick="next('type')">
       <div class="spark"></div>
       <div class="homePanelTitle">工事費<br>診断</div>
-      <div class="homePanelSub">
-        <span class="accent">＼</span>
-        設置費用の<br>目安を診断！
-        <span class="accent">／</span>
-      </div>
-      <div class="homeStart">診断をはじめる！<span>›</span></div>
+      <div class="homePanelSub">設置費用の目安を診断！</div>
+      <div class="homeStart">診断をはじめる！ ＞</div>
     </button>
   </div>
 </div>`;
 return;
 }
 
-if(step==="type") screen("新規取付ですか？買い替えですか？",`
-<button class="btn" onclick="go('type','new','tokyo')">新規取付</button>
-<button class="btn" onclick="go('type','replace','tokyo')">買い替え</button>`,8);
-
-if(step==="tokyo") screen("お住まいは東京都ですか？",`
-<button class="btn" onclick="goTokyo('yes')">はい</button>
-<button class="btn" onclick="goTokyo('no')">いいえ</button>`,16);
-
-if(step==="zero") screen("あなたは以下のいずれかに該当しますか？",`
-<button class="btn" onclick="goZero('senior')">65歳以上</button>
-<button class="btn" onclick="goZero('disabled')">障害者手帳を持っている</button>
-<button class="btn" onclick="goZero('none')">該当しない</button>
-<button class="btn" onclick="goZero('unknown')">わからない</button>`,24);
-
-if(step==="oldAge") screen("現在お使いのエアコンは？",`
-<button class="btn" onclick="go('oldAge','15over','size')">15年以上使用している</button>
-<button class="btn" onclick="go('oldAge','under15','size')">15年未満</button>
-<button class="btn" onclick="go('oldAge','unknown','size')">わからない</button>`,32);
-
-if(step==="size") screen("購入したいエアコンは何畳用ですか？",`
-<button class="btn" onclick="go('size','small','building')">6畳</button>
-<button class="btn" onclick="go('size','small','building')">8畳</button>
-<button class="btn" onclick="go('size','small','building')">10畳</button>
-<button class="btn" onclick="go('size','small','building')">12畳</button>
-<button class="btn" onclick="go('size','medium','building')">14畳</button>
-<button class="btn" onclick="go('size','medium','building')">18畳</button>
-<button class="btn" onclick="go('size','large','building')">20畳以上</button>`,40);
-
-if(step==="building") screen("お住まいの種類を選んでください",`
-<div class="grid">
-<button class="option" onclick="go('building','house','install')">戸建て</button>
-<button class="option" onclick="go('building','apartment','floor')">マンション/アパート</button>
-</div>`,48);
-
-if(step==="floor") screen("お住まいの階数は？",`
-<button class="btn" onclick="go('floor','first','install')">1階</button>
-<button class="btn" onclick="go('floor','upper','elevator')">2階以上</button>`,56);
-
-if(step==="elevator") screen("エレベーターはありますか？",`
-<button class="btn" onclick="go('elevator','yes','install')">あり</button>
-<button class="btn" onclick="go('elevator','no','stairsBeforeInstall')">なし</button>`,64);
-
-if(step==="stairsBeforeInstall") screen("室外機を階段で運ぶ必要がありますか？",`
-<button class="btn" onclick="go('stairs','none','install')">なし</button>
-<button class="btn" onclick="go('stairs','indoor','install')">内階段</button>
-<button class="btn" onclick="go('stairs','outdoor','install')">外階段</button>
-<button class="btn" onclick="go('stairs','unknown','install')">わからない</button>`,68);
-
-if(step==="install") screen("設置方法を選んでください",`
-<div class="tapImage">
-<img src="${imgInstall}" onerror="this.style.display='none'">
-<button class="hot h1" onclick="goInstall('standard')"></button>
-<button class="hot h2" onclick="goInstall('wall')"></button>
-<button class="hot h3" onclick="goInstall('koudan')"></button>
-<button class="hot h4" onclick="goInstall('roof')"></button>
-<button class="hot h5" onclick="goInstall('two')"></button>
-<button class="hot h6" onclick="goInstall('second')"></button>
-<button class="hot h7" onclick="goInstall('third')"></button>
-</div>`,72);
-
-if(step==="houseStandardFloor") screen("室内機を設置する階は？",`
-<button class="btn" onclick="go('houseFloor','first','piping')">1階</button>
-<button class="btn" onclick="go('houseFloor','secondFloor','stairsAfterHouseStandard')">2階</button>
-<button class="btn" onclick="go('houseFloor','thirdFloor','stairsAfterHouseStandard')">3階</button>`,76);
-
-if(step==="stairsAfterHouseStandard") screen("室外機を階段で運ぶ必要がありますか？",`
-<button class="btn" onclick="go('stairs','none','piping')">なし</button>
-<button class="btn" onclick="go('stairs','indoor','piping')">内階段</button>
-<button class="btn" onclick="go('stairs','outdoor','piping')">外階段</button>
-<button class="btn" onclick="go('stairs','unknown','piping')">わからない</button>`,80);
-
-if(step==="twoPos") screen("二段置きのどちらですか？",`
-<button class="btn" onclick="go('twoPos','upperPos','piping')">上段</button>
-<button class="btn" onclick="go('twoPos','lowerPos','piping')">下段</button>`,80);
-
-if(step==="piping") screen("配管の種類を選んでください",`
-<div class="tapImage">
-<img src="${imgPiping}" onerror="this.style.display='none'">
-<button class="hot p1" onclick="goPiping('normal')"></button>
-<button class="hot p2" onclick="goPiping('hidden')"></button>
-<button class="hot p3" onclick="goPiping('unknown')"></button>
-</div>`,88);
-
+if(step==="type") screen("新規取付ですか？買い替えですか？",`<button class="btn" onclick="go('type','new','tokyo')">新規取付</button><button class="btn" onclick="go('type','replace','tokyo')">買い替え</button>`,8);
+if(step==="tokyo") screen("お住まいは東京都ですか？",`<button class="btn" onclick="goTokyo('yes')">はい</button><button class="btn" onclick="goTokyo('no')">いいえ</button>`,16);
+if(step==="zero") screen("あなたは以下のいずれかに該当しますか？",`<button class="btn" onclick="goZero('senior')">65歳以上</button><button class="btn" onclick="goZero('disabled')">障害者手帳を持っている</button><button class="btn" onclick="goZero('none')">該当しない</button><button class="btn" onclick="goZero('unknown')">わからない</button>`,24);
+if(step==="oldAge") screen("現在お使いのエアコンは？",`<button class="btn" onclick="go('oldAge','15over','size')">15年以上使用している</button><button class="btn" onclick="go('oldAge','under15','size')">15年未満</button><button class="btn" onclick="go('oldAge','unknown','size')">わからない</button>`,32);
+if(step==="size") screen("購入したいエアコンは何畳用ですか？",`<button class="btn" onclick="go('size','small','building')">6畳</button><button class="btn" onclick="go('size','small','building')">8畳</button><button class="btn" onclick="go('size','small','building')">10畳</button><button class="btn" onclick="go('size','small','building')">12畳</button><button class="btn" onclick="go('size','medium','building')">14畳</button><button class="btn" onclick="go('size','medium','building')">18畳</button><button class="btn" onclick="go('size','large','building')">20畳以上</button>`,40);
+if(step==="building") screen("お住まいの種類を選んでください",`<div class="grid"><button class="option" onclick="go('building','house','install')">戸建て</button><button class="option" onclick="go('building','apartment','floor')">マンション/アパート</button></div>`,48);
+if(step==="floor") screen("お住まいの階数は？",`<button class="btn" onclick="go('floor','first','install')">1階</button><button class="btn" onclick="go('floor','upper','elevator')">2階以上</button>`,56);
+if(step==="elevator") screen("エレベーターはありますか？",`<button class="btn" onclick="go('elevator','yes','install')">あり</button><button class="btn" onclick="go('elevator','no','stairsBeforeInstall')">なし</button>`,64);
+if(step==="stairsBeforeInstall") screen("室外機を階段で運ぶ必要がありますか？",`<button class="btn" onclick="go('stairs','none','install')">なし</button><button class="btn" onclick="go('stairs','indoor','install')">内階段</button><button class="btn" onclick="go('stairs','outdoor','install')">外階段</button><button class="btn" onclick="go('stairs','unknown','install')">わからない</button>`,68);
+if(step==="install") screen("設置方法を選んでください",`<div class="tapImage"><img src="${imgInstall}" onerror="this.style.display='none'"><button class="hot h1" onclick="goInstall('standard')"></button><button class="hot h2" onclick="goInstall('wall')"></button><button class="hot h3" onclick="goInstall('koudan')"></button><button class="hot h4" onclick="goInstall('roof')"></button><button class="hot h5" onclick="goInstall('two')"></button><button class="hot h6" onclick="goInstall('second')"></button><button class="hot h7" onclick="goInstall('third')"></button></div>`,72);
+if(step==="houseStandardFloor") screen("室内機を設置する階は？",`<button class="btn" onclick="go('houseFloor','first','piping')">1階</button><button class="btn" onclick="go('houseFloor','secondFloor','stairsAfterHouseStandard')">2階</button><button class="btn" onclick="go('houseFloor','thirdFloor','stairsAfterHouseStandard')">3階</button>`,76);
+if(step==="stairsAfterHouseStandard") screen("室外機を階段で運ぶ必要がありますか？",`<button class="btn" onclick="go('stairs','none','piping')">なし</button><button class="btn" onclick="go('stairs','indoor','piping')">内階段</button><button class="btn" onclick="go('stairs','outdoor','piping')">外階段</button><button class="btn" onclick="go('stairs','unknown','piping')">わからない</button>`,80);
+if(step==="twoPos") screen("二段置きのどちらですか？",`<button class="btn" onclick="go('twoPos','upperPos','piping')">上段</button><button class="btn" onclick="go('twoPos','lowerPos','piping')">下段</button>`,80);
+if(step==="piping") screen("配管の種類を選んでください",`<div class="tapImage"><img src="${imgPiping}" onerror="this.style.display='none'"><button class="hot p1" onclick="goPiping('normal')"></button><button class="hot p2" onclick="goPiping('hidden')"></button><button class="hot p3" onclick="goPiping('unknown')"></button></div>`,88);
 if(step==="result") result();
 
 if(step==="makerConcern") screen("一番重視したいことは？",`
@@ -322,41 +163,13 @@ function goZero(v){state.zero=v;if(state.type==="replace" && !(v==="senior"||v==
 function goInstall(v){state.install=v;if(v==="two"){next("twoPos");return}if(state.building==="house" && v==="standard"){next("houseStandardFloor");return}next("piping")}
 function goPiping(v){state.piping=v;next("result")}
 function stairsFee(){const s=state.size;if(state.stairs==="indoor") return s==="small"?2200:3300;if(state.stairs==="outdoor") return 2200;return 0}
-
-function calc(){
-const s=state.size;let total=base[s]||0;
-if(state.type==="new"){total+=(installNew[state.install]?.[s]||0)}
-else{if(state.install==="two"){const key=state.twoPos==="lowerPos"?"twoLower":"twoUpper";total+=(installReplace[key]?.[s]||0)}else{total+=(installReplace[state.install]?.[s]||0)}total+=removalFee+recycleFee}
-if(state.piping==="hidden") total+=8800;
-total+=stairsFee();
-return total;
-}
-
-function zeroText(){
-if(state.tokyo!=="yes") return "";
-if(state.zero==="senior"||state.zero==="disabled") return "🟢 対象機種が一律80,000円引きになる場合があります。詳しくはスタッフまでご相談ください。";
-if(state.type==="replace") return "🟢 東京都の補助制度の対象となる可能性があります。";
-return "⚪ 東京都の補助制度についてはスタッフへご相談ください。";
-}
+function calc(){const s=state.size;let total=base[s]||0;if(state.type==="new"){total+=(installNew[state.install]?.[s]||0)}else{if(state.install==="two"){const key=state.twoPos==="lowerPos"?"twoLower":"twoUpper";total+=(installReplace[key]?.[s]||0)}else{total+=(installReplace[state.install]?.[s]||0)}total+=removalFee+recycleFee}if(state.piping==="hidden") total+=8800;total+=stairsFee();return total}
+function zeroText(){if(state.tokyo!=="yes") return "";if(state.zero==="senior"||state.zero==="disabled") return "🟢 対象機種が一律80,000円引きになる場合があります。詳しくはスタッフまでご相談ください。";if(state.type==="replace") return "🟢 東京都の補助制度の対象となる可能性があります。";return "⚪ 東京都の補助制度についてはスタッフへご相談ください。"}
 
 function result(){
 const total=calc();
 const details=[label(state.type),state.tokyo?"東京都："+label(state.tokyo):"",state.zero?label(state.zero):"",label(state.size),label(state.building),state.building==="house"&&state.houseFloor?"室内機の階数："+label(state.houseFloor):"",state.building==="apartment"?"階数："+label(state.floor):"",state.elevator?"エレベーター："+label(state.elevator):"",state.stairs?"階段搬入："+label(state.stairs):"","設置方法："+label(state.install),state.install==="two"&&state.twoPos?"二段置き："+label(state.twoPos):"","配管："+label(state.piping),state.oldAge?"使用年数："+(state.oldAge==="15over"?"15年以上":state.oldAge==="under15"?"15年未満":"わからない"):""].filter(Boolean);
-
-document.getElementById("screen").innerHTML=`
-<div class="card">
-<h1>診断結果</h1>
-<div class="sub">概算工事費総額</div>
-<div class="resultPrice">${yen(total)}</div>
-${state.type==="replace"?`<p class="sub">取り外し料・家電リサイクル料を含みます</p>`:""}
-<p class="sub">この画面をスタッフへお見せください</p>
-<div class="detail"><strong>診断内容</strong><br>${details.map(x=>"・"+x).join("<br>")}
-${state.type==="replace"?`<br>・取り外し料：${yen(removalFee)}<br>・家電リサイクル料：${yen(recycleFee)}`:""}
-<br><br>${zeroText()}</div>
-<div class="notice">⚠️ 表示金額は概算工事費です。<br>${state.type==="replace"?"⚠️ 表示金額には取り外し料・家電リサイクル料を含みます。<br>":""}⚠️ 設置状況により追加工事費が発生する場合があります。<br>${state.piping==="unknown"?"⚠️ 配管種類が不明のため、追加料金が発生する場合があります。<br>":""}${state.stairs==="unknown"?"⚠️ 室外機の搬入経路によって追加料金が発生する場合があります。<br>":""}👷 詳しくは店舗スタッフまでお気軽にご相談ください。</div>
-<button class="btn primary" onclick="next('makerConcern')">メーカー診断へ進む</button>
-<button class="btn" onclick="resetAll()">ホームへ戻る</button>
-</div>`;
+document.getElementById("screen").innerHTML=`<div class="card"><h1>診断結果</h1><div class="sub">概算工事費総額</div><div class="resultPrice">${yen(total)}</div>${state.type==="replace"?`<p class="sub">取り外し料・家電リサイクル料を含みます</p>`:""}<p class="sub">この画面をスタッフへお見せください</p><div class="detail"><strong>診断内容</strong><br>${details.map(x=>"・"+x).join("<br>")}${state.type==="replace"?`<br>・取り外し料：${yen(removalFee)}<br>・家電リサイクル料：${yen(recycleFee)}`:""}<br><br>${zeroText()}</div><div class="notice">⚠️ 表示金額は概算工事費です。<br>${state.type==="replace"?"⚠️ 表示金額には取り外し料・家電リサイクル料を含みます。<br>":""}⚠️ 設置状況により追加工事費が発生する場合があります。<br>${state.piping==="unknown"?"⚠️ 配管種類が不明のため、追加料金が発生する場合があります。<br>":""}${state.stairs==="unknown"?"⚠️ 室外機の搬入経路によって追加料金が発生する場合があります。<br>":""}👷 詳しくは店舗スタッフまでお気軽にご相談ください。</div><button class="btn primary" onclick="next('makerConcern')">メーカー診断へ進む</button><button class="btn" onclick="resetAll()">ホームへ戻る</button></div>`;
 }
 
 const makers={
@@ -369,41 +182,9 @@ sharp:{name:"シャープ",typeText:"花粉やニオイ対策を重視するタ�
 general:{name:"ゼネラル",typeText:"コストパフォーマンスを重視するタイプ",title:"本体価格・除菌・お手入れ重視におすすめ",tags:["本体代","55℃お湯除菌","コスパ"],points:["本体価格を抑えたい方におすすめ","55℃のお湯で除菌できる機能が魅力","温風ではなくお湯なので除菌効果を感じやすい","奥まで外してお手入れしやすい","コストパフォーマンスを重視する方におすすめ"]}
 };
 
-function recommend(){
-if(state.concern==="bodyPrice") return ["general","sharp"];
-if(state.concern==="electric") return ["daikin","mitsubishi"];
-if(state.concern==="smell") return ["panasonic","sharp"];
-if(state.concern==="wind") return ["toshiba","daikin"];
-if(state.concern==="power") return ["daikin","panasonic"];
-if(state.concern==="support") return ["daikin","hitachi"];
-if(state.concern==="kidsPets") return ["toshiba","mitsubishi"];
-if(state.concern==="clean"){
-if(state.cleaning==="auto") return ["hitachi","panasonic"];
-if(state.cleaning==="self") return ["mitsubishi","general"];
-if(state.cleaning==="sterilize") return ["general","hitachi"];
-if(state.cleaning==="smell") return ["panasonic","sharp"];
-}
-return ["daikin","mitsubishi"];
-}
-
-function makerResult(){
-const [first,second]=recommend();
-const one=makers[first], two=makers[second];
-document.getElementById("screen").innerHTML=`
-<div class="card">
-<div class="resultHero"><div class="resultHeroTitle">メーカー診断結果</div><div class="resultHeroMain">あなたにおすすめのメーカー</div></div>
-<div class="resultType"><div class="resultTypeSmall">あなたはこんな方におすすめ</div><div class="resultTypeMain">${one.typeText}</div><div class="resultTypeText">診断結果から、${one.name}がお客様のご要望に最も近いメーカーです。</div></div>
-<div class="rankWrap">${makerBox("第1候補",one,"first")}${makerBox("第2候補",two,"second")}</div>
-<div class="notice">👷 最終的にはお部屋の広さ・設置場所・在庫機種に合わせてスタッフがご案内します。</div>
-<button class="btn" onclick="back()">← 戻る</button>
-<button class="btn primary" onclick="resetAll()">ホームへ戻る</button>
-</div>`;
-}
-
-function makerBox(rank,m,type){
-return `<div class="rankBox ${type}"><div class="rankLabel">${rank}</div><div class="rankTitle">${m.name}</div><div class="rankSub">${m.title}</div><div>${m.tags.map(t=>`<span class="badge">${t}</span>`).join("")}</div><div class="rankPoint">${m.points.map(p=>"✅ "+p).join("<br>")}</div></div>`;
-}
-
+function recommend(){if(state.concern==="bodyPrice") return ["general","sharp"];if(state.concern==="electric") return ["daikin","mitsubishi"];if(state.concern==="smell") return ["panasonic","sharp"];if(state.concern==="wind") return ["toshiba","daikin"];if(state.concern==="power") return ["daikin","panasonic"];if(state.concern==="support") return ["daikin","hitachi"];if(state.concern==="kidsPets") return ["toshiba","mitsubishi"];if(state.concern==="clean"){if(state.cleaning==="auto") return ["hitachi","panasonic"];if(state.cleaning==="self") return ["mitsubishi","general"];if(state.cleaning==="sterilize") return ["general","hitachi"];if(state.cleaning==="smell") return ["panasonic","sharp"];}return ["daikin","mitsubishi"];}
+function makerResult(){const [first,second]=recommend();const one=makers[first],two=makers[second];document.getElementById("screen").innerHTML=`<div class="card"><div class="resultHero"><div class="resultHeroTitle">メーカー診断結果</div><div class="resultHeroMain">あなたにおすすめのメーカー</div></div><div class="resultType"><div class="resultTypeSmall">あなたはこんな方におすすめ</div><div class="resultTypeMain">${one.typeText}</div><div class="resultTypeText">診断結果から、${one.name}がお客様のご要望に最も近いメーカーです。</div></div><div class="rankWrap">${makerBox("第1候補",one,"first")}${makerBox("第2候補",two,"second")}</div><div class="notice">👷 最終的にはお部屋の広さ・設置場所・在庫機種に合わせてスタッフがご案内します。</div><button class="btn" onclick="back()">← 戻る</button><button class="btn primary" onclick="resetAll()">ホームへ戻る</button></div>`;}
+function makerBox(rank,m,type){return `<div class="rankBox ${type}"><div class="rankLabel">${rank}</div><div class="rankTitle">${m.name}</div><div class="rankSub">${m.title}</div><div>${m.tags.map(t=>`<span class="badge">${t}</span>`).join("")}</div><div class="rankPoint">${m.points.map(p=>"✅ "+p).join("<br>")}</div></div>`;}
 function resetAll(){for(const k in state) delete state[k];history=[];step="home";render()}
 render();
 </script>
